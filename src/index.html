@@ -23,9 +23,18 @@ title: Books wiki
 
     <h1>{{ title }}</h1>
 
+    <input type="text" placeholder="Search.." id="searchBar">
+
+    <script>
+      function submit(){
+        console.log(document.getElementById('searchBar').value);
+      }
+    </script>
+    <input type="button" value="Submit" onclick="submit();"/>
+
     <ul id="bookList">
-      {% for book in books.volumeInfo.industryIdentifiers %}
-        <li>{{ book.identifier }}</li>
+      {% for book in books.items %}
+        <li> <a href="/books/{{ book.volumeInfo.title | slug }}.html"> {{ book.volumeInfo.title }} </a> </li>
       {% endfor %}
     </ul>
   </div>

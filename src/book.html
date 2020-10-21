@@ -1,0 +1,31 @@
+---
+pagination:
+  data: books.items
+  size: 1
+  alias: book
+permalink: "/books/{{ book.volumeInfo.title | slug }}.html"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ book.volumeInfo.title }}</title>
+
+  <style>
+    h1 {
+      text-align:center;
+    }
+    div.container {
+      margin: 0 auto;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>{{ book.volumeInfo.title }}</h1>
+  <img src={{ book.volumeInfo.imageLinks.thumbnail }}>
+  <p>Author: {{ book.volumeInfo.authors[0] }}</p>
+  <p>Description: {{ book.volumeInfo.description }}</p>
+</body>
+</html>
