@@ -1,0 +1,194 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is an early OpenAPI specification attempt. This list is subject to change as implementation hasn't even started yet.",
+    "version": "1.0.0",
+    "title": "Dog images smart processor",
+    "termsOfService": "http://localhost:80/",
+    "contact": {
+      "email": "adrian.tiron@info.uaic.ro"
+    }
+  },
+  "host": "localhost:80",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "main",
+      "description": "Main page"
+    },
+    {
+      "name": "filter",
+      "description": "Filtering photos"
+    },
+    {
+      "name": "dataviz",
+      "description": "Data visualization"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "main"
+        ],
+        "summary": "Browse the main page",
+        "description": "",
+        "operationId": "populateMainPage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Dog"
+            }
+          },
+          "404": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/filter/{dogId}": {
+      "get": {
+        "tags": [
+          "filter"
+        ],
+        "summary": "Find dog by ID",
+        "description": "Returns a single dog",
+        "operationId": "getDogById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "dogId",
+            "in": "path",
+            "description": "ID of dog to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Filter"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Dog not found"
+          }
+        }
+      }
+    },
+    "/dataviz": {
+      "get": {
+        "tags": [
+          "dataviz"
+        ],
+        "summary": "Returns available data graph options",
+        "description": "Returns a list of available data visualization options on database images",
+        "operationId": "getGraphOptions",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Graphs"
+            }
+          }
+        }
+      }
+    },
+    "/dataviz/{graph-option}": {
+      "get": {
+        "tags": [
+          "dataviz"
+        ],
+        "summary": "Get graph visualization",
+        "description": "For an available data viz option, display a graph with data regarding DB images",
+        "operationId": "getDataviz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "graph-option",
+            "in": "path",
+            "description": "ID of graph that needs to be fetched",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Graphs"
+            }
+          },
+          "400": {
+            "description": "Invalid option supplied"
+          },
+          "404": {
+            "description": "Graph not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Graphs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "graph-option": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Dog": {
+      "type": "object",
+      "properties": {
+        "dogId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "race": {
+          "type": "string"
+        }
+      }
+    },
+    "Filter": {
+      "type": "object",
+      "properties": {
+        "filterId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "filter": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
