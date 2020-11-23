@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>IMOR Description</title>
+	</head>
+
+	<body prefix="schema: http://schema.org/
+          		  xsd: http://www.w3.org/2001/XMLSchema#
+          		  sa: https://ns.science.ai/">
+
+        <article typeof="schema:ScholarlyArticle" resource="#">
+        	<header>
+			    <h1>IMOR Description</h1>
+			</header>
+
+			<section typeof="sa:AuthorsList">
+				<h2>Authors</h2>
+			    <ul>
+			    	<!-- The first author -->
+			    	<li property="schema:author" typeof="sa:ContributorRole">
+			      		<a property="schema:author" href="https://github.com/stefanihnatiw" typeof="schema:Person">
+			        		<span property="schema:givenName">Stefan</span>
+			        		<span property="schema:familyName">Ihnatiw</span>
+			      		</a>
+			    	</li>
+			     	<!-- The second author -->
+			      	<li property="schema:author" typeof="sa:ContributorRole">
+			        	<a property="schema:author" href="https://github.com/adriantiron" typeof="schema:Person">
+			          		<span property="schema:givenName">Adrian</span>
+			          		<span property="schema:familyName">Tiron</span>
+			        	</a>
+			      	</li>
+			    </ul>
+			</section>
+
+			<section typeof="sa:Abstract">
+				<h2>Considerations</h2>
+				<p>We want to develop a web application based on microservices that can perform searching and filtering of images from a certain dataset using trained models to identify and visualize different characteristics. The main framework that interacts with microservices we want to use is Flask because of its integration with Python language and simplicity over other full-stack frameworks like Django. For the client side we intend on using ReactJS library for the easy integration with Flask. The backend part will be written in Python and should include machine learning algorithms on data visualization and identification implemented using the Keras API, data storing and retrieval using the H5py interface for easy manipulation using Keras, and SPARQLWrapper as an endpoint interface for Python.</p>
+			</section>
+
+			<section typeof="sa:MaterialsAndMethods">
+				<h2>Flask</h2>
+				<p>Flask is a micro framework of Python which provides the basic functionality of web framework and allows more plug-ins to be added so the functionality and feature set can be extended to a new level. Flask is called as micro framework of Python because it makes the core functionality simple but extensible in terms of development. It can also be used to save time building web applications. It has no database abstraction layer, form validation, or any other components. Flask supports extensions, which exist for object-relational mappers, form validation, upload handling, various open authentication technologies and more.</p>
+				<p>Flask structure is split into two parts, static files & template files, template files having all the templates include Html pages, whereas static files having all static code needed for websites such as CSS code, JavaScript code and Image files.</p>
+				<p>Features of Flask:</p>
+				<ol>
+					<li>Integrated supports for unit testing</li>
+					<li>Uses Jinja2 templating - modern and designer friendly templating language for python, modeled after Django's templates, with a syntax easy to visually distinguish from HTML code</li>
+					<li>Support for secure cookies</li>
+					<li>Extensive documentation</li>
+					<li>Google app engine compatibility</li>
+					<li>Restful request dispatching</li>
+					<li>Unicode based</li>
+				</ol>
+				<p>Hello World program in Flask is a basic example of Flask where we are importing Flask class using import function, then we are defining hello world function and then returning 'Hello World!':</p>
+				<figure typeof="schema:SoftwareSourceCode">
+			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
+			    		<meta property="schema:name" content="python">
+			    		<code>
+			    			from flask import Flask
+
+			    			app = Flask(__name__)
+
+			    			@app.route('/')
+			    			def hello_world():
+			    				return 'Hello World!'
+			    			
+			    			if __name__ == '__main__':
+			    				app.run()
+			    		</code>
+			  		</pre>
+				</figure>
+				<p>Great thing about Python and Flask is that it is portable and interactive language for web development. Python provides easy way to use standard libraries, works with almost all databases, powerful text processing and document processing facilities, and plays well with other web technologies.</p>
+			</section>
+
+			<section typeof="sa:MaterialsAndMethods">
+				<h2>ReactJS</h2>
+				<p>ReactJS is a component-based library which is deployed for the development of interactive user interfaces. Currently it is the most popular front-end JS library. It incorporates the view (V) layer in the MVC (Model View Controller) pattern. It is supported by Facebook, Instagram and a community of individual developers and organizations. React basically enables development of large and complex web-based applications which can change their data without subsequent page refreshes. It targets to provide better user experiences and with blazing fast and robust web apps development.</p>
+				<p>Features of React:</p>
+				<ol>
+					<li>Lightweight DOM for Better Performance - it does not interact with the DOM generated by the browser but reacts to the document object model stored in the memory which results in a blazing fast and robust performance of the application</li>
+					<li>Easy Learning Curve - a developer gets along with the framework very easily</li>
+					<li>JSX - highly popular language which is very similar to the tech giant XML, not mandatory but helps in making development easier, whenever writing mark-ups for components and the corresponding binding events</li>
+					<li>Performance – highly efficient framework because it uses a virtual DOM feature</li>
+					<li>One-way data flow – it is designed in such a way that unidirectional data flow that is downstream is allowed and supported, making it well-known for the generation of canonical data sources that remains synchronized across the components that which pay attention to it</li>
+					<li>Virtual DOM - key feature, similar to the document object model generated by the browser but with a difference that it is stored it memory. Whenever a request for changing the page content is made, the changes are reflected to the memory residing virtual DOM first. After that, a diff() algorithm compares the virtual DOM and the browser DOM an then the required changes only are reflected to the browser DOM, instead of re-rendering the entire DOM. This provides a gigantic boost to the performance of application, essentially when thousands of data changes are to be made</li>
+				</ol>
+				<p>The Component is the major building-block in React. The entire user interface can be designed by assembling a tree of multiple components. An intermediate DOM is generated by the render() method present in each of the React components. As shown in Fig.1, a call to the React.renderComponent() method on the root Component leads to recursively going down the Component tree and generating the intermediate-DOM. Then afterwards this intermediate DOM is converted to the actual HTML DOM.</p>
+				<figure typeof="sa:Image">
+					<img src="fig1.png" width="600" height="300">
+					<figcaption>Fig.1 Conversion of intermediate DOM to HTML DOM</figcaption>
+				</figure>
+				<p>React makes use of a convenient XML-based extension to JavaScript, known as the JSX, to generate the component tree as a combination of multiple XML nodes. This makes DOM visualization and understanding easy and much more convenient. JSX also plays a key role in simplifying the association of the event handlers and properties as XML attributes. The final JavaScript is generated using a command line and in browser tool. A Component is directly mapped by a JSX XML node. It is important to note that React works independent of JSX and the using JSX only plays the task of simplifying the task of generating intermediate DOM.</p>
+				<p>React has a few limitations too that must be considered:</p>
+				<ul>
+					<li>Only the View entity in the mobile view controller or MVC is handled by the react. Therefore, additional tooling is required in order to complete the project development</li>
+					<li>Use of inline templates and JSX sometimes proves to be an intensively complex and tiring task for a small set of developers</li>
+					<li>Also, in case of ReactJS, failures happen at compile time instead of runtime as in case of other languages and frameworks, which can sometimes be very frustrating and tiring</li>
+				</ul>
+			</section>
+
+			<section typeof="sa:MaterialsAndMethods">
+				<h2>Keras API</h2>
+				<p>Keras is a deep learning API written in Python, running on top of the machine learning platform TensorFlow. It was developed with a focus on enabling fast experimentation, being able to go from idea to result as fast as possible is key to doing good research. It offers consistent & simple APIs, it minimizes the number of user actions required for common use cases, and it provides clear and actionable feedback upon user error.</p>
+				<p>Keras ranked as #1 for deep learning both among primary frameworks and among all frameworks used.</p>
+				<figure typeof="sa:Image">
+					<img src="fig2.png" width="600" height="300">
+					<figcaption>Fig.2 Primary ML software tool used by top-5 teams on Kaggle in each competition (n=120)</figcaption>
+				</figure>
+				<p>The core data structures of Keras are layers and models. The simplest type of model is the Sequential model, a linear stack of layers. For more complex architectures, the Keras functional API allows to build arbitrary graphs of layers, or write models entirely from scratch via subclasssing.</p>
+				<p>Here is an example of the Sequential model with 2 layers and how to compile it:</p>
+				<figure typeof="schema:SoftwareSourceCode">
+			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
+			    		<meta property="schema:name" content="python">
+			    		<code>
+			    			from tensorflow.keras.models import Sequential
+
+			    			model = Sequential()
+			    			model.add(Dense(units=64, activation='relu'))
+			    			model.add(Dense(units=10, activation='softmax'))
+
+			    			model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
+			    		</code>
+			  		</pre>
+				</figure>
+				<p>Then, training on a given set (x_train, y_train) and testing the model with a test set (x_test) can be achieved like this:</p>
+				<figure typeof="schema:SoftwareSourceCode">
+			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
+			    		<meta property="schema:name" content="python">
+			    		<code>
+			    			model.fit(x_train, y_train, epochs=5, batch_size=32)
+			    			classes = model.predict(x_test, batch_size=128)
+			    		</code>
+			  		</pre>
+				</figure>
+				<p>Keras is also a highly-flexible framework suitable to iterate on state-of-the-art research ideas. Keras follows the principle of progressive discloure of complexity: it makes it easy to get started, yet it makes it possible to handle arbitrarily advanced use cases, only requiring incremental learning at each step.</p>
+			</section>
+
+			<section typeof="sa:MaterialsAndMethods">
+				<h2>H5py interface</h2>
+				<p>The h5py package is a Pythonic interface to the HDF5 binary data format.</p>
+				<p>It lets you store huge amounts of numerical data, and easily manipulate that data from NumPy. For example, you can slice into multi-terabyte datasets stored on disk, as if they were real NumPy arrays. Thousands of datasets can be stored in a single file, categorized and tagged however you want.</p>
+				<p>H5py uses straightforward NumPy and Python metaphors, like dictionary and NumPy array syntax. For example, you can iterate over datasets in a file, or check out the shape or dtype attributes of datasets. You don't need to know anything special about HDF5 to get started.</p>
+				<p>In addition to the easy-to-use high-level interface, h5py rests on an object-oriented Cython wrapping of the HDF5 C API. Almost anything you can do from C in HDF5, you can do from h5py.</p>
+				<p>Best of all, the files you create are in a widely-used standard binary format, which you can exchange with other people, including those who use programs like IDL and MATLAB.</p>
+			</section>
+
+			<section typeof="sa:MaterialsAndMethods">
+				<h2>SPARQLWrapper</h2>
+				<p>SPARQLWrapper is a simple Python wrapper around a SPARQL service to remotely execute your queries. It helps in creating the query invocation and, possibly, convert the result into a more manageable format.</p>
+				<p>The simplest usage of this module looks as follows (using the default XML return format and special URI for the SPARQL Service):</p>
+				<figure typeof="schema:SoftwareSourceCode">
+			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
+			    		<meta property="schema:name" content="python">
+			    		<code>
+			    			from SPARQLWrapper import SPARQLWrapper
+
+			    			queryString = "SELECT * WHERE { ?s ?p ?o. }"
+			    			sparql = SPARQLWrapper("http://example.org/sparql")
+			    			sparql.setQuery(queryString)
+
+			    			try:
+			    				ret = sparql.query()  # ret is a stream with the results in XML
+			    			except:
+			    				deal_with_the_exception()
+			    		</code>
+			  		</pre>
+				</figure>
+			</section>
+
+			<section typeof="sa:ReferenceList">
+				<h2>References</h2>
+				<ol>
+					<li id="ref-flask" typeof="schema:Article" resource="https://core.ac.uk/download/pdf/55305148.pdf">
+						<span property="schema:author" typeof="schema:Person">
+	    					<span property="schema:givenName">Fankar</span>
+	    					<span property="schema:additionalName">Armash</span>
+	    					<span property="schema:familyName">Aslam</span>
+						</span>.
+  						<cite property="schema:name">Efficient Way Of Web Development Using Python And Flask.</cite>
+  						<span property="schema:isPartOf" typeof="schema:PublicationVolume">
+    						<span property="schema:isPartOf" typeof="schema:Periodical">
+      							<span property="schema:name">International Journal of Advanced Research in Computer Science</span>
+    						</span>
+    						<time about="https://core.ac.uk/download/pdf/55305148.pdf" 
+    						property="schema:datePublished" datetime="2015-03" datatype="xsd:gYearMonth">2015 Mar</time>;
+    						<span property="schema:volumeNumber">6</span>
+  						</span>
+					</li>
+
+					<li id="ref-react" typeof="schema:Article" resource="http://ijrra.net/Vol5issue1/IJRRA-05-01-27.pdf">
+						<span property="schema:author" typeof="schema:Person">
+	    					<span property="schema:givenName">Sanchit</span>
+	    					<span property="schema:familyName">Aggarwal</span>
+						</span>.
+  						<cite property="schema:name">Modern web-development using reactjs.</cite>
+  						<span property="schema:isPartOf" typeof="schema:PublicationVolume">
+    						<span property="schema:isPartOf" typeof="schema:Periodical">
+      							<span property="schema:name">International Journal of Recent Research Aspects</span>
+    						</span>
+    						<time about="http://ijrra.net/Vol5issue1/IJRRA-05-01-27.pdf" 
+    						property="schema:datePublished" datetime="2018-03" datatype="xsd:gYearMonth">2018 Mar</time>;
+    						<span property="schema:volumeNumber">5</span>
+  						</span>
+					</li>
+
+					<li id="ref-keras" typeof="schema:WebSite" resource="https://keras.io/guides/">
+						<span property="schema:author" typeof="schema:Organization">
+	    					<span property="schema:name">Keras SIG</span>
+						</span>.
+						<span property="schema:name">Keras Guides</span>
+					</li>
+
+					<li id="ref-h5py" typeof="schema:WebSite" resource="https://www.h5py.org/">
+						<span property="schema:author" typeof="schema:Person">
+	    					<span property="schema:givenName">Andrew</span>
+	    					<span property="schema:familyName">Collette</span>
+						</span>.
+						<span property="schema:name">H5py interface</span>
+					</li>
+
+					<li id="ref-sparql" typeof="schema:WebSite" resource="https://github.com/RDFLib/sparqlwrapper">
+						<span property="schema:author" typeof="schema:Person">
+	    					<span property="schema:givenName">Ivan</span>
+	    					<span property="schema:familyName">Herman</span>
+						</span>,
+						<span property="schema:author" typeof="schema:Person">
+	    					<span property="schema:givenName">Sergio</span>
+	    					<span property="schema:familyName">Fernández</span>
+						</span>.
+						<span property="schema:name">SPARQLWrapper</span>
+					</li>
+				</ol>
+			</section>
+
+        </article>
+
+	</body>
+
+</html>
