@@ -9,7 +9,14 @@ app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__fil
 
 @app.route('/')
 def index():
-    return Markup('<strong>Hello, <blink>hacker</blink>!</strong>')
+    return render_template('index.html')
+
+@app.route('/browse_images', methods=['GET', 'POST'])
+def browse_images():
+    if request.method == 'POST':
+        return render_template('browse_images.html')
+    else:
+        return render_template('browse_images.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
