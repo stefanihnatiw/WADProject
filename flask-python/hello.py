@@ -1,4 +1,4 @@
-import os.path
+import os, base64
 from flask import *
 from markupsafe import Markup
 
@@ -10,6 +10,20 @@ app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__fil
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/getImages', methods=['GET'])
+def get_images():
+    images = []
+    for (root, dirs, files) in os.walk(app.config['UPLOAD_FOLDER']):
+        for file in files:
+            file_path = os.path.join(root, file)
+            if not file_path.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+                continue
+            with open(file_path, 'rb') as f:
+                file_data = base64.b64encode(f.read()).decode('utf-8')
+                image_data = {"title": file, "data": file_data}
+            images.append(image_data)
+    return jsonify({'images': images})
 
 @app.route('/browse_images', methods=['GET', 'POST'])
 def browse_images():

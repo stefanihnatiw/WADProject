@@ -1,3 +1,7 @@
+var PageNumber = 1;
+var NumberRows = 4;
+var NumberCols = 5;
+
 class Image extends React.Component {
   constructor(props) {
     super(props);
@@ -5,56 +9,69 @@ class Image extends React.Component {
   }
 
   render() {
+    var src = "data:image/gif;base64,".concat(this.props.image.data);
     return (
-      <th><img 
-        src="https://www.w3schools.com/css/img_5terre.jpg" 
-        alt="" 
+      <img 
+        src={src}
+        alt={this.props.image.title} 
         width="300" 
         height="200"
         onClick={() => this.setState({ clicked: true})}>
-      </img></th>
+      </img>
     );
   }
 }
 
+const Images = ({ images }) => {
+  var selectedImages = [];
+  var i;
+  var start = (PageNumber - 1) * NumberRows * NumberCols;
+  var end = PageNumber * NumberRows * NumberCols;
+  for (i = start; i < end; i++) {
+    if (i < images.length) {
+      selectedImages.push(
+        <td><Image image={images[i]} /></td>
+      );
+    }
+  }
+
+  var displayList = [];
+  for (i = 0; i < selectedImages.length; i=i+NumberCols) {
+    var row = selectedImages.slice(i, i+NumberCols);
+    displayList.push(
+      <tr>{row}</tr>
+    )
+  }
+  return (
+    <table>
+      {displayList}
+    </table>
+  )
+};
+
 class ImageTable extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {images: null};
   }
 
-  renderImage(i) {
-     return <Image />;
+  componentDidMount() {
+    fetch('http://localhost:5000/getImages')
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({ images: data.images })
+    })
+    .catch(console.log)
   }
 
   render() {
-    return (
-      <table>
-        <tr>
-          {this.renderImage(0)}
-          {this.renderImage(1)}
-          {this.renderImage(2)}
-          {this.renderImage(3)}
-        </tr>
-        <tr>
-          {this.renderImage(4)}
-          {this.renderImage(5)}
-          {this.renderImage(6)}
-          {this.renderImage(7)}
-        </tr>
-        <tr>
-          {this.renderImage(8)}
-          {this.renderImage(9)}
-          {this.renderImage(10)}
-          {this.renderImage(11)}
-        </tr>
-        <tr>
-          {this.renderImage(12)}
-          {this.renderImage(13)}
-          {this.renderImage(14)}
-          {this.renderImage(15)}
-        </tr>
-      </table>
-    );
+    return this.state.images ? (
+        <div>
+          <Images images={this.state.images}/>
+        </div> 
+      ) : (
+        <span>Loading images...</span>
+    )
   }
 }
 
