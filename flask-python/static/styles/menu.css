@@ -3,7 +3,7 @@
 body, button {font-family: 'Sofia', cursive;}
 
 .menuButton {
-	font-size: 30px;
+	font-size: 2vw;
 	cursor: pointer;
 	z-index: 1;
 	position: relative;
@@ -19,13 +19,13 @@ body, button {font-family: 'Sofia', cursive;}
   background-color: #111;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 3%;
+  padding-top: 4%;
 }
 
 .sidenav a, button {
   padding: 3% 3% 3% 12%;
   text-decoration: none;
-  font-size : 1.7em /* Times New Roman, sans-serif */;
+  font-size : 1.9vw /* Times New Roman, sans-serif */;
   color: #818181;
   display: block;
   transition: 0.3s;
@@ -52,10 +52,11 @@ body, button {font-family: 'Sofia', cursive;}
 }
 
 #searchBar {
-	padding: 2% 2%;
+  width: 60%;
 }
 
 #submitButton {
-	padding: 2.5% 2.5%;
+	width: 30%;
+  padding: 1.3% 0%;
 	border: none;
 }
