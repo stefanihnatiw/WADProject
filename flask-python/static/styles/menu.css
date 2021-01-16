@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+
+body, button {font-family: 'Sofia', cursive;}
+
+.menuButton {
+	font-size: 30px;
+	cursor: pointer;
+	z-index: 1;
+	position: relative;
+	color: #424949;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 3%;
+}
+
+.sidenav a, button {
+  padding: 3% 3% 3% 12%;
+  text-decoration: none;
+  font-size : 1.7em /* Times New Roman, sans-serif */;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  background: none;
+  border: none;
+  border-style: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.sidenav a:hover, button:hover {
+  color: #f1f1f1;
+}
+
+#closeButton {
+  position: absolute;
+  top: 0;
+  right: 8%;
+}
+
+#mySearchForm {
+  display: none;
+  white-space: nowrap;
+}
+
+#searchBar {
+	padding: 2% 2%;
+}
+
+#submitButton {
+	padding: 2.5% 2.5%;
+	border: none;
+}

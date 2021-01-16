@@ -14,40 +14,42 @@ class Image extends React.Component {
       <img 
         src={src}
         alt={this.props.image.title} 
-        width="300" 
-        height="200"
+        style={{'height': '50vh', 'width': (100/NumberCols - 100/NumberCols/6).toString().concat('vw'), 'object-fit': 'cover'}}
         onClick={() => this.setState({ clicked: true})}>
       </img>
     );
   }
 }
 
-const Images = ({ images }) => {
-  var selectedImages = [];
-  var i;
-  var start = (PageNumber - 1) * NumberRows * NumberCols;
-  var end = PageNumber * NumberRows * NumberCols;
-  for (i = start; i < end; i++) {
-    if (i < images.length) {
-      selectedImages.push(
-        <td><Image image={images[i]} /></td>
-      );
-    }
+class Images extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  var displayList = [];
-  for (i = 0; i < selectedImages.length; i=i+NumberCols) {
-    var row = selectedImages.slice(i, i+NumberCols);
-    displayList.push(
-      <tr>{row}</tr>
+  render() {
+    var images = this.props.images;
+    var selectedImages = [];
+    var i;
+    for (i = 0; i < images.length; i++) {
+      selectedImages.push(
+          <td><Image image={images[i]} /></td>
+        );
+    }
+
+    var displayList = [];
+    for (i = 0; i < selectedImages.length; i=i+NumberCols) {
+      var row = selectedImages.slice(i, i+NumberCols);
+      displayList.push(
+        <tr>{row}</tr>
+      )
+    }
+    return (
+      <table>
+        {displayList}
+      </table>
     )
   }
-  return (
-    <table>
-      {displayList}
-    </table>
-  )
-};
+}
 
 class ImageTable extends React.Component {
   constructor(props) {
@@ -56,7 +58,7 @@ class ImageTable extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:5000/getImages')
+    fetch('http://localhost:5000/getImages/'.concat(PageNumber.toString(), "/", NumberRows.toString(), "/", NumberCols.toString()))
     .then(res => res.json())
     .then((data) => {
       this.setState({ images: data.images })
