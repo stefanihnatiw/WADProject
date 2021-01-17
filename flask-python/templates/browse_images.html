@@ -16,7 +16,7 @@
 
       <button onclick="updateBrowse()">Browse</button>
 
-      <form id="mySearchForm" class="searchform" action="/browse_images" method="post" enctype="multipart/form-data">
+      <form id="searchForm" action="/browse_images" method="post" enctype="multipart/form-data">
         <input type="text" id="searchBar" name="searchBar" value="" placeholder="Search">
         <input type="submit" id="submitButton" value="Submit">
       </form>
@@ -25,13 +25,19 @@
       <a href="javascript:void(0)">Visualise</a>
       <a href="javascript:void(0)">About</a>
       <a href="javascript:void(0)">Home</a>
+
+      <div id="pageSwitch">
+        <button onclick="prevPage()">🡠</button>
+        <div id="pageSwitchInput"></div>
+        <button onclick="nextPage()">🡢</button>
+      </div>
+
     </div>
 
     <span class="menuButton" onclick="updateNav()">&#9776; Menu</span>
 
     <div id="image_table"></div>
     
-    <script src="{{ url_for('static', filename='scripts/menu.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='scripts/browse_images.js') }}" type="text/babel"></script>
 
   </body>

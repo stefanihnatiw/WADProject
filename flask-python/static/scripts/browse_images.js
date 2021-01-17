@@ -14,7 +14,7 @@ class Image extends React.Component {
       <img 
         src={src}
         alt={this.props.image.title} 
-        style={{'height': '50vh', 'width': (100/NumberCols - 100/NumberCols/6).toString().concat('vw'), 'object-fit': 'cover'}}
+        style={{'height': '50vh', 'width': (100/NumberCols - 100/NumberCols/6).toString().concat('vw'), 'object-fit': 'cover', 'cursor': 'pointer'}}
         onClick={() => this.setState({ clicked: true})}>
       </img>
     );
@@ -55,15 +55,20 @@ class ImageTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {images: null};
+    this.fetchImages = this.fetchImages.bind(this);
   }
 
-  componentDidMount() {
+  fetchImages() {
     fetch('http://localhost:5000/getImages/'.concat(PageNumber.toString(), "/", NumberRows.toString(), "/", NumberCols.toString()))
     .then(res => res.json())
     .then((data) => {
       this.setState({ images: data.images })
     })
     .catch(console.log)
+  }
+
+  componentDidMount() {
+    this.fetchImages();
   }
 
   render() {
@@ -77,7 +82,81 @@ class ImageTable extends React.Component {
   }
 }
 
-ReactDOM.render(
+const imageTable = ReactDOM.render(
   <ImageTable />,
   document.getElementById('image_table')
 );
+
+//////////////////////////////////////////////////////////////////////////////////
+
+function switchPage(newPageNumber) {
+  if(newPageNumber < 1) return;
+  PageNumber = newPageNumber;
+  document.getElementById("pageInput").value = PageNumber.toString();
+  imageTable.fetchImages();
+}
+
+function prevPage() {
+  switchPage(PageNumber - 1);
+}
+
+function nextPage() {
+  switchPage(PageNumber + 1);
+}
+
+class Input extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {value:'1'}
+      this.handleChange = this.handleChange.bind(this);
+      this.keyPress = this.keyPress.bind(this);
+   } 
+ 
+   handleChange(e) {
+      this.setState({ value: e.target.value });
+   }
+
+   keyPress(e){
+      if(e.keyCode == 13 && !isNaN(e.target.value)){
+        switchPage(parseInt(e.target.value));
+      }
+   }
+
+  render() {
+    return (
+      <input id="pageInput" type="text" value={this.state.value} onKeyDown={this.keyPress} onChange={this.handleChange} />
+    );
+  }
+}
+
+ReactDOM.render(
+  <Input />,
+  document.getElementById('pageSwitchInput')
+);
+
+/////////////////////////////////////////////////////////////////////////////////
+
+var navOpen = false;
+var browseOpen = false;
+
+function updateNav() {
+  if(!navOpen) {
+    document.getElementById("mySidenav").style.width = "13%";
+    document.getElementById("image_table").style.setProperty('margin-left', '13%');
+    navOpen = true;
+  } else {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("image_table").style.setProperty('margin-left', '0%');
+    navOpen = false;
+  }
+}
+
+function updateBrowse() {
+  if(!browseOpen) {
+    document.getElementById("searchForm").style.display = "block";
+    browseOpen = true;
+  } else {
+    document.getElementById("searchForm").style.display = "none";
+    browseOpen = false;
+  }
+}

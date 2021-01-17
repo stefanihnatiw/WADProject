@@ -22,7 +22,7 @@ body, button {font-family: 'Sofia', cursive;}
   padding-top: 4%;
 }
 
-.sidenav a, button {
+.sidenav > a, .sidenav > button {
   padding: 3% 3% 3% 12%;
   text-decoration: none;
   font-size : 1.9vw /* Times New Roman, sans-serif */;
@@ -46,7 +46,7 @@ body, button {font-family: 'Sofia', cursive;}
   right: 8%;
 }
 
-#mySearchForm {
+#searchForm {
   display: none;
   white-space: nowrap;
 }
@@ -57,6 +57,34 @@ body, button {font-family: 'Sofia', cursive;}
 
 #submitButton {
 	width: 30%;
-  padding: 1% 0%;
+  	padding: 1% 0%;
 	border: none;
+}
+
+#pageSwitch {
+	display: block;
+	margin-top: 5%;
+	padding: 3% 3% 3% 12%;
+	white-space: nowrap;
+}
+
+#pageSwitch * {
+  display: inline;
+  font-size : 1vw;
+}
+
+#pageSwitch button {
+  text-decoration: none;
+  color: #818181;
+  background: none;
+  border: none;
+  border-style: none;
+  cursor: pointer;
+  outline: none;
+}
+
+#pageSwitchInput input {
+	width: 20%;
+	margin-bottom: 2%;
+	text-align: center;
 }
