@@ -3,6 +3,6 @@ table {
 }
 
 #image_table {
-	margin: auto;
+	margin-left: 6%;
 	transition: 0.5s;
 }

@@ -146,7 +146,7 @@ function updateNav() {
     navOpen = true;
   } else {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("image_table").style.setProperty('margin-left', '0%');
+    document.getElementById("image_table").style.setProperty('margin-left', '6%');
     navOpen = false;
   }
 }
