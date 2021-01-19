@@ -35,12 +35,16 @@ def get_images(page_number, number_rows, number_cols):
                 images.append(image_data)
     return jsonify({'images': images})
 
+
+@app.route('/display_image/<filename>', methods=['GET'])
+def display_image(filename):
+    print(filename)
+    return render_template('browse_images.html')
+
+
 @app.route('/browse_images', methods=['GET', 'POST'])
 def browse_images():
-    if request.method == 'POST':
-        return render_template('browse_images.html')
-    else:
-        return render_template('browse_images.html')
+    return render_template('browse_images.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

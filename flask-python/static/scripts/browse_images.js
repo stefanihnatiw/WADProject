@@ -10,11 +10,21 @@ class Image extends React.Component {
 
   render() {
     var src = "data:image/gif;base64,".concat(this.props.image.data);
+
+    if(this.state.clicked === true) {
+      var filename = this.props.image.title.slice(0, -4);
+      window.location.href = "/display_image/".concat(filename);
+    }
+
     return (
       <img 
         src={src}
         alt={this.props.image.title} 
-        style={{'height': '50vh', 'width': (100/NumberCols - 100/NumberCols/6).toString().concat('vw'), 'object-fit': 'cover', 'cursor': 'pointer'}}
+        style={{'height': '50vh', 
+                'width': (100/NumberCols - 100/NumberCols/6).toString().concat('vw'), 
+                'object-fit': 'cover', 
+                'cursor': 'pointer'
+              }}
         onClick={() => this.setState({ clicked: true})}>
       </img>
     );
@@ -141,12 +151,12 @@ var browseOpen = false;
 
 function updateNav() {
   if(!navOpen) {
-    document.getElementById("mySidenav").style.width = "13%";
-    document.getElementById("image_table").style.setProperty('margin-left', '13%');
+    document.getElementById("mySidenav").style.width = "14%";
+    document.getElementById("image_table").style.setProperty('margin-left', '14%');
     navOpen = true;
   } else {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("image_table").style.setProperty('margin-left', '6%');
+    document.getElementById("image_table").style.setProperty('margin-left', '7%');
     navOpen = false;
   }
 }
@@ -160,3 +170,5 @@ function updateBrowse() {
     browseOpen = false;
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////
