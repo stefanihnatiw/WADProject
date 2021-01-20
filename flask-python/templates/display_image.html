@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Browse images</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/display_image.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/menu.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
@@ -13,32 +14,23 @@
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" id="closeButton" onclick="updateNav()">&times;</a>
 
-      <button onclick="updateBrowse()">Browse</button>
-
       <form id="searchForm" action="/browse_images" method="post" enctype="multipart/form-data">
         <input type="text" id="searchBar" name="searchBar" value="" placeholder="Search">
         <input type="submit" id="submitButton" value="Submit">
       </form>
 
-      <a href="javascript:void(0)">Filter</a>
       <a href="javascript:void(0)">Visualise</a>
       <a href="javascript:void(0)">About</a>
       <a href="javascript:void(0)">Home</a>
-
-      <div id="pageSwitch">
-        <button onclick="prevPage()">🡠</button>
-        <div id="pageSwitchInput"></div>
-        <button onclick="nextPage()">🡢</button>
-      </div>
 
     </div>
 
     <span class="menuButton" onclick="updateNav()">&#9776; Menu</span>
 
-    <div id="image_div"></div>
+    <div id="image_div" alt="{{ filename }}"></div>
     
     <script src="{{ url_for('static', filename='scripts/open_menu.js') }}" type="text/babel"></script>
-    <script src="{{ url_for('static', filename='scripts/browse_images.js') }}" type="text/babel"></script>
+    <script src="{{ url_for('static', filename='scripts/display_image.js') }}" type="text/babel"></script>
 
   </body>
 </html>

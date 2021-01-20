@@ -2,6 +2,12 @@
 
 body, button {font-family: 'Sofia', cursive;}
 
+#image_div {
+  margin-top: 10px;
+  margin-left: 6%;
+  transition: 0.5s;
+}
+
 .menuButton {
 	font-size: 2vw;
 	cursor: pointer;

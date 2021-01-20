@@ -1,6 +1,5 @@
 # Dataset
-Dataset/
-flask-python/static/uploads
+flask-python/static/dataset
 flask-python/run.ps1
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,pycharm,python
