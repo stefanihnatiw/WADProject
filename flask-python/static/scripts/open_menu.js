@@ -1,7 +1,7 @@
 var navOpen = false;
 var browseOpen = false;
 
-window.onload = function() {
+function init() {
   navOpen = (getCookie("navOpen") == "true");
   if(navOpen) {
     document.getElementById("mySidenav").style.width = "14%";
@@ -10,7 +10,7 @@ window.onload = function() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("image_div").style.setProperty('margin-left', '0%');
   }
-};
+} window.addEventListener('load', init);
 
 function updateNav() {
   document.querySelector('body').classList.remove('preload');

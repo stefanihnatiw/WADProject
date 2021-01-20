@@ -66,6 +66,18 @@ class ImageTable extends React.Component {
     super(props);
     this.state = {images: null};
     this.fetchImages = this.fetchImages.bind(this);
+    this.initPageNumber = this.initPageNumber.bind(this);
+  }
+
+  initPageNumber() {
+    PageNumber = getCookie("PageNumber");
+    if(PageNumber === "") {
+      PageNumber = 1;
+      setCookie("PageNumber", PageNumber.toString());
+    }
+    else {
+      PageNumber = parseInt(PageNumber);
+    }
   }
 
   fetchImages() {
@@ -78,6 +90,7 @@ class ImageTable extends React.Component {
   }
 
   componentDidMount() {
+    this.initPageNumber();
     this.fetchImages();
   }
 
@@ -103,6 +116,7 @@ function switchPage(newPageNumber) {
   if(newPageNumber < 1) return;
   PageNumber = newPageNumber;
   document.getElementById("pageInput").value = PageNumber.toString();
+  setCookie("PageNumber", PageNumber.toString());
   imageTable.fetchImages();
 }
 
@@ -121,6 +135,14 @@ class Input extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.keyPress = this.keyPress.bind(this);
    } 
+
+  initPageNumber() {
+    document.getElementById("pageInput").value = PageNumber.toString();
+  }
+
+  componentDidMount() {
+    this.initPageNumber();
+  }
  
    handleChange(e) {
       this.setState({ value: e.target.value });
@@ -143,3 +165,27 @@ ReactDOM.render(
   <Input />,
   document.getElementById('pageSwitchInput')
 );
+
+////////////////////////////////////////////////////////////////////////////////
+
+function setCookie(cname, cvalue) {
+  var d = new Date();
+  d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
