@@ -2,10 +2,20 @@
 
 body, button {font-family: 'Sofia', cursive;}
 
+.preload * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
+
 #image_div {
-  margin-top: 10px;
-  margin-left: 6%;
   transition: 0.5s;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .menuButton {
@@ -14,9 +24,11 @@ body, button {font-family: 'Sofia', cursive;}
 	z-index: 1;
 	position: relative;
 	color: #424949;
+	user-select: none;
 }
 
-.sidenav {
+#mySidenav {
+  transition: 0.5s;
   height: 100%;
   width: 0;
   position: fixed;
@@ -24,11 +36,10 @@ body, button {font-family: 'Sofia', cursive;}
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  transition: 0.5s;
   padding-top: 4%;
 }
 
-.sidenav > a, .sidenav > button {
+#mySidenav > a, #mySidenav > button {
   padding: 3% 3% 3% 12%;
   text-decoration: none;
   font-size : 1.9vw /* Times New Roman, sans-serif */;
@@ -42,7 +53,7 @@ body, button {font-family: 'Sofia', cursive;}
   outline: none;
 }
 
-.sidenav a:hover, button:hover {
+#mySidenav a:hover, button:hover {
   color: #f1f1f1;
 }
 
