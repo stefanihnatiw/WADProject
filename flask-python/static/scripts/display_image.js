@@ -10,7 +10,7 @@ class Image extends React.Component {
       <img 
         src={src}
         alt={this.props.image.title} 
-        style={{'max-height': '150vh',
+        style={{'max-height': '90vh',
                 'display': 'block',
                 'margin-left': 'auto',
                 'margin-right': 'auto'
