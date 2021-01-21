@@ -1,6 +1,6 @@
 import os, base64
 from flask import *
-from markupsafe import Markup
+from recommandations import get_data, get_similar_images
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -13,17 +13,23 @@ app.config['IMAGES_FOLDER'] = os.path.join(app.config['DATASET_FOLDER'], 'images
 def index():
     return render_template('index.html')
 
+@app.route('/getImageRecs/<filename>', methods=['GET'])
+def get_image_recs(filename):
+    return jsonify({'recs': get_similar_images(filename)})
+
 @app.route('/getImageData/<filename>', methods=['GET'])
 def get_image_data(filename):
+    image_data = get_data(filename)
     folder = filename.rsplit("_", 1)[0]
     file_path = os.path.join(app.config['IMAGES_FOLDER'], folder, filename + ".jpg")
     with open(file_path, 'rb') as f:
         file_data = base64.b64encode(f.read()).decode('utf-8')
-        image_data = {"title": filename + ".jpg", "data": file_data}
+        image_data["data"] = file_data
     return jsonify({'image': image_data})
 
 @app.route('/getImages/<page_number>/<number_rows>/<number_cols>', methods=['GET'])
 def get_images(page_number, number_rows, number_cols):
+    print("GET IMAGES")
     page_number = int(page_number)
     number_rows = int(number_rows)
     number_cols = int(number_cols)
