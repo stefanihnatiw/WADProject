@@ -29,7 +29,6 @@ def get_image_data(filename):
 
 @app.route('/getImages/<page_number>/<number_rows>/<number_cols>', methods=['GET'])
 def get_images(page_number, number_rows, number_cols):
-    print("GET IMAGES")
     page_number = int(page_number)
     number_rows = int(number_rows)
     number_cols = int(number_cols)
