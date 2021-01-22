@@ -91,17 +91,37 @@ def get_data(filename):
     data["genre"] = get_artist_data(data["artist"])["genre"]
     return data
 
-def filter_files(set_filters):
+def is_empty(artist_filters):
+    if artist_filters == {}:
+        return True
+    for key in artist_filters:
+        if artist_filters[key] is True:
+            return False
+    return True
+
+def filter_files(set_filters, search_input):
     artist_filters = set_filters["Artist"]
     res = list()
-    if artist_filters == {}:
+    empty_artists = is_empty(artist_filters)
+    if empty_artists and search_input == "*":
         return res
+
+    genre_artists = list()
+    input_file = csv.DictReader(open("artists.csv"))
+    for row in input_file:
+        if search_input.lower() in row["genre"].lower():
+            genre_artists.append(row["name"])
+
     input_file = csv.DictReader(open("recomm_df.csv"))
     for row in input_file:
-        artist_flag = False
+        artist_flag = search_flag = False
+        filename = row['img_path'].rsplit("\\", 1)[1]
         artist = row['label'].replace("_", " ")
-        if artist in artist_filters and artist_filters[artist] is True:
+        if empty_artists or (artist in artist_filters and artist_filters[artist] is True):
             artist_flag = True
-        if artist_flag:
-            res.append(row['img_path'].rsplit("\\", 1)[1])
+        if search_input == "*" or search_input.lower() in filename.lower() or search_input.lower() in artist.lower() or artist in genre_artists:
+            search_flag = True
+        if artist_flag and search_flag:
+            res.append(filename)
+    print(len(res))
     return res

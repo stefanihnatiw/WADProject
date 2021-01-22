@@ -31,8 +31,8 @@ def get_image_data(filename):
         image_data["data"] = file_data
     return jsonify({'image': image_data})
 
-@app.route('/getImages/<page_number>/<number_rows>/<number_cols>/<set_filters>', methods=['GET'])
-def get_images(page_number, number_rows, number_cols, set_filters):
+@app.route('/getImages/<page_number>/<number_rows>/<number_cols>/<set_filters>/<search_input>', methods=['GET'])
+def get_images(page_number, number_rows, number_cols, set_filters, search_input):
     page_number = int(page_number)
     number_rows = int(number_rows)
     number_cols = int(number_cols)
@@ -41,7 +41,7 @@ def get_images(page_number, number_rows, number_cols, set_filters):
     start = (page_number - 1) * number_rows * number_cols
     end = page_number * number_rows * number_cols
     image_nr = -1
-    filtered_files = filter_files(set_filters)
+    filtered_files = filter_files(set_filters, search_input)
     for (root, dirs, files) in os.walk(app.config['RESIZED_FOLDER']):
         if image_nr == end:
             break

@@ -3,6 +3,7 @@ var NumberRows = 4;
 var NumberCols = 5;
 
 var setFilters = {"Artist": {}};
+var searchInput = "*";
 
 class Image extends React.Component {
   constructor(props) {
@@ -89,13 +90,21 @@ class ImageTable extends React.Component {
     else {
       setFilters = JSON.parse(setFilters);
     }
+
+    searchInput = getCookie("searchInput");
+    document.getElementById("searchBar").value = searchInput.replace("*", "");
+    if(searchInput === "") {
+      searchInput = "*";
+      setCookie("searchInput", searchInput);
+    }
   }
 
   fetchImages() {
     fetch('http://localhost:5000/getImages/'.concat(PageNumber.toString(), "/", 
                                                     NumberRows.toString(), "/", 
                                                     NumberCols.toString(), "/",
-                                                    JSON.stringify(setFilters)))
+                                                    JSON.stringify(setFilters), "/",
+                                                    searchInput))
     .then(res => res.json())
     .then((data) => {
       this.setState({ images: data.images })
@@ -252,6 +261,36 @@ ReactDOM.render(
   <ArtistFilter />,
   document.getElementById('artistFilters')
 );
+
+////////////////////////////////////////////////////////////////////////////////
+
+document.querySelector("#searchForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    searchInput = document.getElementById("searchBar").value
+    if(searchInput === "") {
+      searchInput = "*";
+    }
+    setCookie("searchInput", searchInput);
+    switchPage(1);
+});
+
+function goHome() {
+
+  setFilters = {"Artist": {}};
+  setCookie("setFilters", JSON.stringify(setFilters));
+
+  var checkboxes = document.querySelectorAll("input[type=checkbox][name=filterBox]");
+  checkboxes.forEach(function(checkbox) {
+    checkbox.checked = false;
+  });
+
+  searchInput = "*";
+  setCookie("searchInput", searchInput);
+
+  document.getElementById("searchBar").value = "";
+
+  switchPage(1);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 
