@@ -2,6 +2,8 @@ var PageNumber = 1;
 var NumberRows = 4;
 var NumberCols = 5;
 
+var setFilters = {"Artist": {}};
+
 class Image extends React.Component {
   constructor(props) {
     super(props);
@@ -66,10 +68,10 @@ class ImageTable extends React.Component {
     super(props);
     this.state = {images: null};
     this.fetchImages = this.fetchImages.bind(this);
-    this.initPageNumber = this.initPageNumber.bind(this);
+    this.initParams = this.initParams.bind(this);
   }
 
-  initPageNumber() {
+  initParams() {
     PageNumber = getCookie("PageNumber");
     if(PageNumber === "") {
       PageNumber = 1;
@@ -78,10 +80,22 @@ class ImageTable extends React.Component {
     else {
       PageNumber = parseInt(PageNumber);
     }
+
+    setFilters = getCookie("setFilters");
+    if(setFilters === "") {
+      setFilters = {"Artist": {}};
+      setCookie("setFilters", JSON.stringify(setFilters));
+    }
+    else {
+      setFilters = JSON.parse(setFilters);
+    }
   }
 
   fetchImages() {
-    fetch('http://localhost:5000/getImages/'.concat(PageNumber.toString(), "/", NumberRows.toString(), "/", NumberCols.toString()))
+    fetch('http://localhost:5000/getImages/'.concat(PageNumber.toString(), "/", 
+                                                    NumberRows.toString(), "/", 
+                                                    NumberCols.toString(), "/",
+                                                    JSON.stringify(setFilters)))
     .then(res => res.json())
     .then((data) => {
       this.setState({ images: data.images })
@@ -90,7 +104,7 @@ class ImageTable extends React.Component {
   }
 
   componentDidMount() {
-    this.initPageNumber();
+    this.initParams();
     this.fetchImages();
   }
 
@@ -134,6 +148,7 @@ class Input extends React.Component {
       this.state = {value:'1'}
       this.handleChange = this.handleChange.bind(this);
       this.keyPress = this.keyPress.bind(this);
+      this.initPageNumber = this.initPageNumber.bind(this);
    } 
 
   initPageNumber() {
@@ -168,8 +183,6 @@ ReactDOM.render(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-var setFilters = {"Artist": {}};
-
 class ArtistFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -194,10 +207,16 @@ class ArtistFilter extends React.Component {
     var checkboxes = document.querySelectorAll("input[type=checkbox][name=filterBox]");
 
     checkboxes.forEach(function(checkbox) {
+      var label = checkbox.parentElement.textContent;
+      if(setFilters["Artist"][label] === true) {
+        checkbox.checked = true;
+      }
+      
       checkbox.addEventListener('change', function() {
-        var label = checkbox.parentElement.textContent;
         var value = checkbox.checked;
         setFilters["Artist"][label] = value;
+        setCookie("setFilters", JSON.stringify(setFilters));
+        switchPage(1);
       })
     });
   }

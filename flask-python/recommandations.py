@@ -90,3 +90,18 @@ def get_data(filename):
             break
     data["genre"] = get_artist_data(data["artist"])["genre"]
     return data
+
+def filter_files(set_filters):
+    artist_filters = set_filters["Artist"]
+    res = list()
+    if artist_filters == {}:
+        return res
+    input_file = csv.DictReader(open("recomm_df.csv"))
+    for row in input_file:
+        artist_flag = False
+        artist = row['label'].replace("_", " ")
+        if artist in artist_filters and artist_filters[artist] is True:
+            artist_flag = True
+        if artist_flag:
+            res.append(row['img_path'].rsplit("\\", 1)[1])
+    return res

@@ -1,6 +1,6 @@
-import os, base64
+import os, base64, json
 from flask import *
-from recommandations import get_data, get_similar_images, get_artists_list
+from recommandations import get_data, get_similar_images, get_artists_list, filter_files
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -31,27 +31,30 @@ def get_image_data(filename):
         image_data["data"] = file_data
     return jsonify({'image': image_data})
 
-@app.route('/getImages/<page_number>/<number_rows>/<number_cols>', methods=['GET'])
-def get_images(page_number, number_rows, number_cols):
+@app.route('/getImages/<page_number>/<number_rows>/<number_cols>/<set_filters>', methods=['GET'])
+def get_images(page_number, number_rows, number_cols, set_filters):
     page_number = int(page_number)
     number_rows = int(number_rows)
     number_cols = int(number_cols)
+    set_filters = json.loads(set_filters)
     images = []
     start = (page_number - 1) * number_rows * number_cols
     end = page_number * number_rows * number_cols
     image_nr = -1
+    filtered_files = filter_files(set_filters)
     for (root, dirs, files) in os.walk(app.config['RESIZED_FOLDER']):
         if image_nr == end:
             break
-        for file in files:
-            file_path = os.path.join(root, file)
-            if not file_path.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+        for filename in files:
+            file_path = os.path.join(root, filename)
+            if not file_path.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')) or \
+                    (len(filtered_files) > 0 and not filename in filtered_files):
                 continue
             image_nr += 1
             if start <= image_nr < end:
                 with open(file_path, 'rb') as f:
                     file_data = base64.b64encode(f.read()).decode('utf-8')
-                    image_data = {"title": file, "data": file_data}
+                    image_data = {"title": filename, "data": file_data}
                 images.append(image_data)
     return jsonify({'images': images})
 
