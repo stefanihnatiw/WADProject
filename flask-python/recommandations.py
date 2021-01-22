@@ -1,13 +1,21 @@
 import pandas as pd
 from annoy import AnnoyIndex
 from ast import literal_eval
-import csv, os, base64
+import csv, os, base64, random
 
 resized_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'dataset', 'resized')
 
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
+
+# read the pre-saved dataframe
+df = pd.read_csv('recomm_df.csv', converters={"img_repr": literal_eval})
+# Initialize the annoy index used for computing the nearest neighbors
+annoy_idx = AnnoyIndex(len(df['img_repr'][0]), metric='euclidean')
+for it, vector in enumerate(df['img_repr']):
+    annoy_idx.add_item(it, vector)
+_ = annoy_idx.build(n_trees=50)
 
 
 def get_similar_images_annoy(img_index, img_no, annoy_idx, df):
@@ -17,17 +25,10 @@ def get_similar_images_annoy(img_index, img_no, annoy_idx, df):
 
 
 def get_recommendations(img_path):
-    # read the pre-saved dataframe
-    df = pd.read_csv('recomm_df.csv', converters={"img_repr": literal_eval})
-    # Initialize the annoy index used for computing the nearest neighbors
-    annoy_idx = AnnoyIndex(len(df['img_repr'][0]), metric='euclidean')
-    for it, vector in enumerate(df['img_repr']):
-        annoy_idx.add_item(it, vector)
-    _ = annoy_idx.build(n_trees=50)
     # Get index of an image in the dataframe by its path
     imgidx = df.loc[df['img_path'] == img_path].index[0]
-    # call the function and get the recommendations dataframe (first image is the requested one, that's why 6)
-    base_image, base_label, similar_images_df = get_similar_images_annoy(img_index=imgidx, img_no=6, annoy_idx=annoy_idx, df=df)
+    # call the function and get the recommendations dataframe (first image is the requested one)
+    base_image, base_label, similar_images_df = get_similar_images_annoy(img_index=imgidx, img_no=11, annoy_idx=annoy_idx, df=df)
     return similar_images_df
 
 
@@ -77,6 +78,9 @@ def get_similar_images(filename):
                              "artist": artist,
                              "data": file_data})
             data.pop(0)
+            random.shuffle(data)
+            for i in range(0, 5):
+                del data[i]
             break
     return data
 

@@ -1,5 +1,6 @@
 import os, base64, json
 from flask import *
+import recommandations
 from recommandations import get_data, get_similar_images, get_artists_list, filter_files
 
 app = Flask(__name__)
