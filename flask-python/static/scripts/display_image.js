@@ -136,3 +136,15 @@ const imageData = ReactDOM.render(
   <ImageData />,
   document.getElementById('image_div')
 );
+
+function goHome() {
+  var setFilters = {"Artist": {}};
+  setCookie("setFilters", JSON.stringify(setFilters));
+
+  var searchInput = "*";
+  setCookie("searchInput", searchInput);
+
+  setCookie("PageNumber", "1");
+
+  window.location.href = "/browse_images"
+}

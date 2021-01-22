@@ -53,7 +53,7 @@ body, button {font-family: 'Sofia', cursive;}
   outline: none;
 }
 
-#mySidenav a:hover, button:hover {
+#mySidenav a:hover, #mySidenav button:hover {
   color: #f1f1f1;
 }
 
