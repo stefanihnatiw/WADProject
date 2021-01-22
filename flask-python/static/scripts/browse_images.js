@@ -168,6 +168,74 @@ ReactDOM.render(
 
 ////////////////////////////////////////////////////////////////////////////////
 
+var setFilters = {"Artist": {}};
+
+class ArtistFilter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {artists: null};
+    this.fetchArtists = this.fetchArtists.bind(this);
+  }
+
+  fetchArtists() {
+    fetch('http://localhost:5000/getArtists')
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({ artists: data.artists })
+    })
+    .catch(console.log)
+  }
+
+  componentDidMount() {
+    this.fetchArtists();
+  }
+
+  componentDidUpdate() {
+    var checkboxes = document.querySelectorAll("input[type=checkbox][name=filterBox]");
+
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+        var label = checkbox.parentElement.textContent;
+        var value = checkbox.checked;
+        setFilters["Artist"][label] = value;
+      })
+    });
+  }
+
+  render() {
+    var artists = this.state.artists;
+    var filterList = [];
+    var i;
+    if(artists !== null) {
+      for (i = 0; i < artists.length; i++) {
+        filterList.push(
+            <div>
+              <label>
+                  <input type="checkbox" id="{ artists[i].name }" name="filterBox"/> 
+                  { artists[i].name }
+              </label>
+              <br/>
+            </div>
+          );
+      }
+    }
+    return this.state.artists ? (
+        <div>
+          {filterList}
+        </div>
+      ) : (
+        <span>Loading artists...</span>
+    )
+  }
+}
+
+ReactDOM.render(
+  <ArtistFilter />,
+  document.getElementById('artistFilters')
+);
+
+////////////////////////////////////////////////////////////////////////////////
+
 function setCookie(cname, cvalue) {
   var d = new Date();
   d.setTime(d.getTime() + (24 * 60 * 60 * 1000));

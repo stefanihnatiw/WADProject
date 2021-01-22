@@ -31,6 +31,21 @@ def get_recommendations(img_path):
     return similar_images_df
 
 
+def get_artists_list():
+    input_file = csv.DictReader(open("artists.csv"))
+    res = list()
+    for row in input_file:
+        data = dict()
+        data["name"] = row["name"]
+        data["years"] = row["years"]
+        data["genre"] = row["genre"]
+        data["nationality"] = row["nationality"]
+        data["bio"] = row["bio"]
+        data["paintings"] = int(row["paintings"])
+        res.append(data)
+    return res
+
+
 def get_artist_data(artist):
     input_file = csv.DictReader(open("artists.csv"))
     data = dict()

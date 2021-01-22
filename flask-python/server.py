@@ -1,6 +1,6 @@
 import os, base64
 from flask import *
-from recommandations import get_data, get_similar_images
+from recommandations import get_data, get_similar_images, get_artists_list
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -12,6 +12,10 @@ app.config['IMAGES_FOLDER'] = os.path.join(app.config['DATASET_FOLDER'], 'images
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/getArtists', methods=['GET'])
+def get_artists():
+    return jsonify({'artists': get_artists_list()})
 
 @app.route('/getImageRecs/<filename>', methods=['GET'])
 def get_image_recs(filename):

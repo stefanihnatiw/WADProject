@@ -1,5 +1,7 @@
 var navOpen = false;
 var browseOpen = false;
+var filtersOpen = false;
+var filtersList = {"artistFilters": false}
 
 function init() {
   navOpen = (getCookie("navOpen") == "true");
@@ -33,6 +35,39 @@ function updateBrowse() {
   } else {
     document.getElementById("searchForm").style.display = "none";
     browseOpen = false;
+  }
+}
+
+function updateFilters() {
+  var i;
+  if(!filtersOpen) {
+    var filters = document.getElementsByClassName("filterCat");
+    for (i = 0; i < filters.length; i++) {
+      filters[i].style.display = "block";
+    }
+    filtersOpen = true;
+  } else {
+    var filters = document.querySelectorAll('.filterCat,.filterOpt');
+    for (i = 0; i < filters.length; i++) {
+      filters[i].style.display = "none";
+    }
+    for(var id in filtersList) {
+      filtersList[id] = false;
+    }
+    filtersOpen = false;
+  }
+}
+
+function updateFilterOpts(id1, id2) {
+  var title = document.getElementById(id1).innerHTML.substring(2);
+  if(!filtersList[id2]) {
+    document.getElementById(id1).innerHTML = "🡣 ".concat(title);
+    document.getElementById(id2).style.display = "block";
+    filtersList[id2] = true;
+  } else {
+    document.getElementById(id1).innerHTML = "🡢 ".concat(title);
+    document.getElementById(id2).style.display = "none";
+    filtersList[id2] = false;
   }
 }
 
