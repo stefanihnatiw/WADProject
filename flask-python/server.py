@@ -1,4 +1,4 @@
-import os, base64, json
+import os, base64, json, csv
 from flask import *
 import recommandations
 from recommandations import get_data, get_similar_images, get_artists_list, filter_files
@@ -68,6 +68,32 @@ def display_image(filename):
 @app.route('/browse_images', methods=['GET', 'POST'])
 def browse_images():
     return render_template('browse_images.html')
+
+
+@app.route('/getArtistsDisplay/<page_number>/<number_rows>/<number_cols>', methods=['GET'])
+def get_artists_display(page_number, number_rows, number_cols):
+    page_number = int(page_number)
+    number_rows = int(number_rows)
+    number_cols = int(number_cols)
+    artists = []
+    start = (page_number - 1) * number_rows * number_cols
+    end = page_number * number_rows * number_cols
+    artist_nr = -1
+    input_file = csv.DictReader(open("artists.csv"))
+    for row in input_file:
+        if artist_nr == end:
+            break
+        artist_nr += 1
+        if start <= artist_nr < end:
+            artist_data = {"name": row["name"], "years": row["years"], "genre": row["genre"],
+                           "nationality": row["nationality"], "bio": row["bio"], "paintings": row["paintings"]}
+            artists.append(artist_data)
+    return jsonify({'artists': artists})
+
+
+@app.route('/browse_artists', methods=['GET', 'POST'])
+def browse_artists():
+    return render_template('browse_artists.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

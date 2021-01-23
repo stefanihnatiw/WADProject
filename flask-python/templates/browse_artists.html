@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Browse images</title>
+    <title>Browse artists</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/menu.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
@@ -13,20 +13,6 @@
     <div id="mySidenav">
       <a href="javascript:void(0)" id="closeButton" onclick="updateNav()">&times;</a>
 
-      <button onclick="updateBrowse()">Browse</button>
-
-      <form id="searchForm" action="/browse_images" method="post" enctype="multipart/form-data">
-        <input type="text" id="searchBar" name="searchBar" value="" placeholder="Search">
-        <input type="submit" id="submitButton" value="Submit">
-      </form>
-
-      <a href="javascript:void(0)" onclick="updateFilters()">Filter</a>
-
-      <h3 id="artistFilter" class="filterCat" onclick="updateFilterOpts('artistFilter', 'artistFilters')">🡢 Artists</h3>
-      <div id="artistFilters" class="filterOpt"></div>
-
-      <button onclick="viewArtists()">Artists</button>
-      <button>Visualize</button>
       <button onclick="goHome()">Home</button>
 
       <div id="pageSwitch">
@@ -42,7 +28,7 @@
     <div id="image_div"></div>
     
     <script src="{{ url_for('static', filename='scripts/menu.js') }}" type="text/babel"></script>
-    <script src="{{ url_for('static', filename='scripts/browse_images.js') }}" type="text/babel"></script>
+    <script src="{{ url_for('static', filename='scripts/browse_artists.js') }}" type="text/babel"></script>
 
   </body>
 </html>
