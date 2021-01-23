@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Display image</title>
+    <title>Display artist</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/menu.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
@@ -19,10 +19,10 @@
 
     <span class="menuButton" onclick="updateNav()">&#9776; Menu</span>
 
-    <div id="image_div" alt="{{ filename }}"></div>
+    <div id="image_div" alt="{{ artistname }}"></div>
     
     <script src="{{ url_for('static', filename='scripts/menu.js') }}" type="text/babel"></script>
-    <script src="{{ url_for('static', filename='scripts/display_image.js') }}" type="text/babel"></script>
+    <script src="{{ url_for('static', filename='scripts/display_artist.js') }}" type="text/babel"></script>
 
   </body>
 </html>

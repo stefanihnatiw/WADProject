@@ -122,7 +122,11 @@ class ImageData extends React.Component {
         <div>
           <MainImage image={this.state.image}/>
           <h2 style={{'display': 'flex','justify-content': 'center'}}>File: {this.state.image.title}</h2>
-          <h4 style={{'display': 'flex','justify-content': 'center'}}>Artist: {this.state.image.artist}</h4>
+          <h4 style={{'display': 'flex','justify-content': 'center'}}>Artist:&nbsp;
+              <a style={{'text-decoration': 'none'}} href={"/display_artist/".concat(this.state.image.artist.replace(" ", "_"))}>
+                {this.state.image.artist}
+              </a>
+          </h4>
           <h4 style={{'display': 'flex','justify-content': 'center'}}>Genre: {this.state.image.genre}</h4>
           <Recommendations />
         </div> 

@@ -1,7 +1,7 @@
-import os, base64, json, csv
+import os, base64, json, csv, random
 from flask import *
 import recommandations
-from recommandations import get_data, get_similar_images, get_artists_list, filter_files
+from recommandations import get_data, get_similar_images, get_artists_list, filter_files, get_artist_data
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -63,6 +63,36 @@ def get_images(page_number, number_rows, number_cols, set_filters, search_input)
 @app.route('/display_image/<filename>', methods=['GET', 'POST'])
 def display_image(filename):
     return render_template('display_image.html', filename=filename)
+
+
+@app.route('/getArtistData/<artistname>', methods=['GET'])
+def get_artist_info(artistname):
+    artist_data = get_artist_data(artistname.replace("_", " "))
+    data = list()
+    input_file = csv.DictReader(open("recomm_df.csv"))
+    work_added = 0
+    for row in input_file:
+        if work_added == 10:
+            break
+        if artistname == row['label']:
+            filename = row['img_path'].rsplit("\\", 1)[1]
+            file_path = os.path.join(app.config['RESIZED_FOLDER'], filename)
+            with open(file_path, 'rb') as f:
+                file_data = base64.b64encode(f.read()).decode('utf-8')
+            data.append({"title": filename,
+                         "artist": artistname,
+                         "data": file_data})
+            work_added += 1
+    random.shuffle(data)
+    for i in range(0, 5):
+        del data[i]
+    artist_data["works"] = data
+    return jsonify({'artist': artist_data})
+
+
+@app.route('/display_artist/<artistname>', methods=['GET', 'POST'])
+def display_artist(artistname):
+    return render_template('display_artist.html', artistname=artistname)
 
 
 @app.route('/browse_images', methods=['GET', 'POST'])

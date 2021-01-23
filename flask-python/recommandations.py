@@ -4,6 +4,7 @@ from ast import literal_eval
 import csv, os, base64, random
 
 resized_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'dataset', 'resized')
+image_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'dataset', 'images')
 
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
@@ -71,9 +72,14 @@ def get_similar_images(filename):
             for index, r in similar_images_df.iterrows():
                 title = r['img_path'].rsplit("\\", 1)[1]
                 artist = r['label'].replace("_", " ")
-                file_path = os.path.join(resized_folder, title)
-                with open(file_path, 'rb') as f:
-                    file_data = base64.b64encode(f.read()).decode('utf-8')
+                try:
+                    file_path = os.path.join(resized_folder, title)
+                    with open(file_path, 'rb') as f:
+                        file_data = base64.b64encode(f.read()).decode('utf-8')
+                except IOError:
+                    file_path = os.path.join(image_folder, r['label'], title)
+                    with open(file_path, 'rb') as f:
+                        file_data = base64.b64encode(f.read()).decode('utf-8')
                 data.append({"title": title,
                              "artist": artist,
                              "data": file_data})

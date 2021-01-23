@@ -92,7 +92,7 @@ class ImageTable extends React.Component {
     }
 
     searchInput = getCookie("searchInput");
-    document.getElementById("searchBar").value = searchInput.replace("*", "");
+    document.getElementById("searchBar").value = searchInput.replaceAll("*", "");
     if(searchInput === "") {
       searchInput = "*";
       setCookie("searchInput", searchInput);

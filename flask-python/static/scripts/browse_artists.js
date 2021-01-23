@@ -10,12 +10,12 @@ class Artist extends React.Component {
 
   render() {
     if(this.state.clicked === true) {
-      window.location.href = "/display_artist/".concat(this.props.artist.name);
+      window.location.href = "/display_artist/".concat(this.props.artist.name.replaceAll(" ", "_"));
     }
 
     return (
         <div
-          style={{'height': '50vh', 
+          style={{'height': '30vh', 
                   'width': (100/NumberCols - 100/NumberCols/5).toString().concat('vw'),
                   'cursor': 'pointer',
                   'border': '2px solid black',
