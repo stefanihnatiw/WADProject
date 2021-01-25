@@ -27,7 +27,7 @@
 				<ol role="directory">
 					<li><a href="#flask"><span>4.1 </span>Flask</a></li>
 					<li><a href="#reactJS"><span>4.2 </span>ReactJS</a></li>
-					<li><a href="#ML"><span>4.3 </span>ML</a></li>
+					<li><a href="#fastai"><span>4.3 </span>FastAI</a></li>
 				</ol>
 			<li><a href="#"><span>5. </span>a</a></li>
 			<li><a href="#"><span>6. </span>a</a></li>
@@ -275,46 +275,35 @@ def hello():
 					</ul>
 				</section>
 
-				<section id="ML">
-					<h2>Keras API</h2>
-					<p>Keras is a deep learning API written in Python, running on top of the machine learning platform TensorFlow. It was developed with a focus on enabling fast experimentation, being able to go from idea to result as fast as possible is key to doing good research. It offers consistent & simple APIs, it minimizes the number of user actions required for common use cases, and it provides clear and actionable feedback upon user error.</p>
-					<p>Keras ranked as #1 for deep learning both among primary frameworks and among all frameworks used.</p>
+				<section id="fastai">
+					<h3>4.3 FastAI</h3>
+					<p>FastAI is a highly performant, easy to use and flexible deep learning library based on PyTorch, providing developers with a high-level syntax, abstracting the complicated sub-layer of mathematics and neural networks. This allows easy and fast training, giving state-of-the-art models, whilst also providing researchers with low-level syntax, suiting their every need. The underlying architecture is a result of analysis upon many data processing and machine learning models, the result being patterns (common things found amongst these models) expressed as abstractions. The dynamic nature of the Python language and the flexibility of the PyTorch library both allow these abstractions to be implemented concisely, in a clear way.</p>
+					<p>FastAI features:</p>
+					<ul>
+						<li>Everything is easier to develop, due to less code having to be written, saving the developer the effort of having to design each of the individual layers layers.</li>
+						<li>It makes use of the GPU using a computer vision library (fastgpu).</li>
+						<li>Has pre-trained models, such as alexnet, resnet18 (34, 50, 101, 152), densenet121 (161, 169, 201), vgg16_bn (19) or squeezenet1_0 (1_1), all complementing PyTorch, which in itself mainly used to build and train models such as these listed here. </li>
+						<li>2-way callback system, used in accessing, at any time in the training, data, the model or optimizer.</li>
+						<li>Provides the developer with a learning rate finder (no more experimenting with learning rate values), included pre-processing, data augmentation, training and testing and validation.</li>
+					</ul>
 					<figure typeof="sa:Image">
-						<img src="fig2.png" width="600" height="300">
-						<figcaption>Fig.2 Primary ML software tool used by top-5 teams on Kaggle in each competition (n=120)</figcaption>
+						<img src="static/misc/fastai-layers.png" width="464" height="609">
+						<figcaption>Fig.2 fastai API layers and application components</figcaption>
 					</figure>
-					<p>The core data structures of Keras are layers and models. The simplest type of model is the Sequential model, a linear stack of layers. For more complex architectures, the Keras functional API allows to build arbitrary graphs of layers, or write models entirely from scratch via subclasssing.</p>
-					<p>Here is an example of the Sequential model with 2 layers and how to compile it:</p>
-					<figure typeof="schema:SoftwareSourceCode">
-						<meta property="schema:name" content="python">
-<pre class="codeborder">
-from tensorflow.keras.models import Sequential
+					
+					<p>So what does this all mean? It means that fastai figures it all out itself: data pre-processing and augmentation, best architecture for your data, best training parameters for your model, best learning rate to achieve convergence as fast as possible. On top of all this, fastai automates as much as it can, resulting in less human error and allowing the developer to focus on results rather than design.</p>
+					<p>Here is a slightly simplified example of a learning model initialization (resnet50), from a folder, with augmentation automatically applied and labels taken from the name of the folder:</p>
+<pre class="codeborder">path = Path('../best-artworks-dataset/images/images')
+tfms = get_transforms(max_rotate= 10.,max_zoom=1., max_lighting=0.20, do_flip=False, max_warp=0.)
+src = (ImageList.from_folder(path).label_from_folder())
+data = (src.transform(tfms, resize_method=ResizeMethod.CROP, padding_mode='border', size=128))
 
-model = Sequential()
-model.add(Dense(units=64, activation='relu'))
-model.add(Dense(units=10, activation='softmax'))
-
-model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
+learn = cnn_learner(data, models.resnet50, metrics=accuracy, model_dir="/temp/model" )
 </pre>
+					<figure typeof="sa:Image">
+						<img src="static/misc/fastai-lrfinder-train.png" width="437" height="426">
+						<figcaption>Fig.3 Example of a learning rate finder session and one cycle train in fastai</figcaption>
 					</figure>
-					<p>Then, training on a given set (x_train, y_train) and testing the model with a test set (x_test) can be achieved like this:</p>
-					<figure typeof="schema:SoftwareSourceCode">
-						<meta property="schema:name" content="python">
-<pre class="codeborder">
-model.fit(x_train, y_train, epochs=5, batch_size=32)
-classes = model.predict(x_test, batch_size=128)
-</pre>
-					</figure>
-					<p>Keras is also a highly-flexible framework suitable to iterate on state-of-the-art research ideas. Keras follows the principle of progressive discloure of complexity: it makes it easy to get started, yet it makes it possible to handle arbitrarily advanced use cases, only requiring incremental learning at each step.</p>
-				</section>
-
-				<section id="">
-					<h2>H5py interface</h2>
-					<p>The h5py package is a Pythonic interface to the HDF5 binary data format.</p>
-					<p>It lets you store huge amounts of numerical data, and easily manipulate that data from NumPy. For example, you can slice into multi-terabyte datasets stored on disk, as if they were real NumPy arrays. Thousands of datasets can be stored in a single file, categorized and tagged however you want.</p>
-					<p>H5py uses straightforward NumPy and Python metaphors, like dictionary and NumPy array syntax. For example, you can iterate over datasets in a file, or check out the shape or dtype attributes of datasets. You don't need to know anything special about HDF5 to get started.</p>
-					<p>In addition to the easy-to-use high-level interface, h5py rests on an object-oriented Cython wrapping of the HDF5 C API. Almost anything you can do from C in HDF5, you can do from h5py.</p>
-					<p>Best of all, the files you create are in a widely-used standard binary format, which you can exchange with other people, including those who use programs like IDL and MATLAB.</p>
 				</section>
 
 				<section id="">
@@ -373,21 +362,6 @@ except:
     						property="schema:datePublished" datetime="2018-03" datatype="xsd:gYearMonth">2018 Mar</time>;
     						<span property="schema:volumeNumber">5</span>
   						</span>
-					</li>
-
-					<li id="ref-keras" typeof="schema:WebSite" resource="https://keras.io/guides/">
-						<span property="schema:author" typeof="schema:Organization">
-	    					<span property="schema:name">Keras SIG</span>
-						</span>.
-						<span property="schema:name">Keras Guides</span>
-					</li>
-
-					<li id="ref-h5py" typeof="schema:WebSite" resource="https://www.h5py.org/">
-						<span property="schema:author" typeof="schema:Person">
-	    					<span property="schema:givenName">Andrew</span>
-	    					<span property="schema:familyName">Collette</span>
-						</span>.
-						<span property="schema:name">H5py interface</span>
 					</li>
 
 					<li id="ref-sparql" typeof="schema:WebSite" resource="https://github.com/RDFLib/sparqlwrapper">
