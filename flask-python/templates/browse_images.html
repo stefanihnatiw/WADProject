@@ -21,12 +21,15 @@
       </form>
 
       <a href="javascript:void(0)" onclick="updateFilters()">Filter</a>
-
       <h3 id="artistFilter" class="filterCat" onclick="updateFilterOpts('artistFilter', 'artistFilters')">🡢 Artists</h3>
       <div id="artistFilters" class="filterOpt"></div>
 
       <button onclick="viewArtists()">Artists</button>
-      <button onclick="visualize()">Graphs</button>
+
+      <button onclick="updateGraphs()">Graphs</button>
+      <h3 id="ageAnalysis" class="graphCat" onclick="visualizeAge()">Age Analysis</h3>
+      <h3 id="nonAgeAnalysis" class="graphCat" onclick="visualizeNonAge()">Non-Age Analysis</h3>
+
       <button onclick="goHome()">Home</button>
 
       <div id="pageSwitch">

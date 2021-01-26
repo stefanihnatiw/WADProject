@@ -127,10 +127,14 @@ def browse_artists():
     return render_template('browse_artists.html')
 
 
-@app.route('/getGraphs', methods=['GET'])
-def get_graphs():
+@app.route('/getGraphs/<tip>', methods=['GET'])
+def get_graphs(tip):
     graphs = []
-    for (root, dirs, files) in os.walk(app.config['GRAPHS_FOLDER']):
+    if tip == "age":
+        path = os.path.join(app.config['GRAPHS_FOLDER'], "age")
+    else:
+        path = os.path.join(app.config['GRAPHS_FOLDER'], "non-age")
+    for (root, dirs, files) in os.walk(path):
         for filename in files:
             file_path = os.path.join(root, filename)
             if not file_path.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
@@ -142,9 +146,9 @@ def get_graphs():
     return jsonify({'graphs': graphs})
 
 
-@app.route('/visualize', methods=['GET', 'POST'])
-def visualize():
-    return render_template('visualize.html')
+@app.route('/visualize/<tip>', methods=['GET', 'POST'])
+def visualize(tip):
+    return render_template('visualize.html', type=tip)
 
 
 @app.route('/login', methods=['GET', 'POST'])

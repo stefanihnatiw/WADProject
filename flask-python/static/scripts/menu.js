@@ -1,6 +1,7 @@
 var navOpen = false;
 var browseOpen = false;
 var filtersOpen = false;
+var graphsOpen = false;
 var filtersList = {"artistFilters": false}
 
 function init() {
@@ -68,6 +69,23 @@ function updateFilterOpts(id1, id2) {
     document.getElementById(id1).innerHTML = "🡢 ".concat(title);
     document.getElementById(id2).style.display = "none";
     filtersList[id2] = false;
+  }
+}
+
+function updateGraphs() {
+  var i;
+  if(!graphsOpen) {
+    var graphs = document.getElementsByClassName("graphCat");
+    for (i = 0; i < graphs.length; i++) {
+      graphs[i].style.display = "block";
+    }
+    graphsOpen = true;
+  } else {
+    var graphs = document.getElementsByClassName("graphCat");
+    for (i = 0; i < graphs.length; i++) {
+      graphs[i].style.display = "none";
+    }
+    graphsOpen = false;
   }
 }
 

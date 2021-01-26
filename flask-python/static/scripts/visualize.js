@@ -47,12 +47,12 @@ class Graphs extends React.Component {
 class GraphTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {graphs: null};
+    this.state = {graphs: null, type: document.getElementById('image_div').getAttribute("alt")};
     this.fetchGraphs = this.fetchGraphs.bind(this);
   }
 
   fetchGraphs() {
-    fetch('http://localhost:5000/getGraphs')
+    fetch('http://localhost:5000/getGraphs/'.concat(this.state.type))
     .then(res => res.json())
     .then((data) => {
       this.setState({ graphs: data.graphs })

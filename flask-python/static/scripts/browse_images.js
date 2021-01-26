@@ -292,7 +292,7 @@ function goHome() {
   switchPage(1);
 }
 
-function viewArtists() {
+function resetCookies() {
   var setFilters = {"Artist": {}};
   setCookie("setFilters", JSON.stringify(setFilters));
 
@@ -300,20 +300,21 @@ function viewArtists() {
   setCookie("searchInput", searchInput);
 
   setCookie("PageNumber", "1");
+}
 
+function viewArtists() {
+  resetCookies();
   window.location.href = "/browse_artists"
 }
 
-function visualize() {
-  var setFilters = {"Artist": {}};
-  setCookie("setFilters", JSON.stringify(setFilters));
+function visualizeAge() {
+  resetCookies();
+  window.location.href = "/visualize/age"
+}
 
-  var searchInput = "*";
-  setCookie("searchInput", searchInput);
-
-  setCookie("PageNumber", "1");
-
-  window.location.href = "/visualize"
+function visualizeNonAge() {
+  resetCookies();
+  window.location.href = "/visualize/non-age"
 }
 
 ////////////////////////////////////////////////////////////////////////////////

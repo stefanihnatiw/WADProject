@@ -53,7 +53,7 @@ body, button {font-family: 'Sofia', cursive;}
   outline: none;
 }
 
-#mySidenav a:hover, #mySidenav button:hover {
+#mySidenav a:hover, #mySidenav button:hover, .graphCat:hover {
   color: #f1f1f1;
 }
 
@@ -106,7 +106,7 @@ body, button {font-family: 'Sofia', cursive;}
 	text-align: center;
 }
 
-.filterCat {
+.filterCat, .graphCat {
   padding: 0% 3% 1% 15%;
   text-decoration: none;
   font-size : 1vw;
