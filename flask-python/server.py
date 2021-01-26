@@ -8,6 +8,7 @@ app.secret_key = "super secret key"
 app.config['DATASET_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'dataset')
 app.config['RESIZED_FOLDER'] = os.path.join(app.config['DATASET_FOLDER'], 'resized')
 app.config['IMAGES_FOLDER'] = os.path.join(app.config['DATASET_FOLDER'], 'images')
+app.config['GRAPHS_FOLDER'] = os.path.join(app.config['DATASET_FOLDER'], 'graphs')
 
 
 @app.route('/')
@@ -124,6 +125,26 @@ def get_artists_display(page_number, number_rows, number_cols):
 @app.route('/browse_artists', methods=['GET', 'POST'])
 def browse_artists():
     return render_template('browse_artists.html')
+
+
+@app.route('/getGraphs', methods=['GET'])
+def get_graphs():
+    graphs = []
+    for (root, dirs, files) in os.walk(app.config['GRAPHS_FOLDER']):
+        for filename in files:
+            file_path = os.path.join(root, filename)
+            if not file_path.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+                continue
+            with open(file_path, 'rb') as f:
+                file_data = base64.b64encode(f.read()).decode('utf-8')
+                graph_data = {"data": file_data}
+            graphs.append(graph_data)
+    return jsonify({'graphs': graphs})
+
+
+@app.route('/visualize', methods=['GET', 'POST'])
+def visualize():
+    return render_template('visualize.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -304,6 +304,18 @@ function viewArtists() {
   window.location.href = "/browse_artists"
 }
 
+function visualize() {
+  var setFilters = {"Artist": {}};
+  setCookie("setFilters", JSON.stringify(setFilters));
+
+  var searchInput = "*";
+  setCookie("searchInput", searchInput);
+
+  setCookie("PageNumber", "1");
+
+  window.location.href = "/visualize"
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 function setCookie(cname, cvalue) {
