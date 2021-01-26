@@ -12,6 +12,7 @@ class Graph extends React.Component {
         style={{'display': 'block',
                 'margin': 'auto',
                 'margin-bottom': '5vh',
+                'max-width': '80vw',
                 'object-fit': 'cover'
               }}>
       </img>
