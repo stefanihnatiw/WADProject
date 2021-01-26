@@ -15,11 +15,12 @@ class Artist extends React.Component {
 
     return (
         <div
-          style={{'height': '30vh', 
+          style={{'height': '40vh', 
                   'width': (100/NumberCols - 100/NumberCols/5).toString().concat('vw'),
                   'cursor': 'pointer',
                   'border': '2px solid black',
-                  'text-align': 'center'
+                  'text-align': 'center',
+                  'font-size' : '1vw'
                 }}
           onClick={() => this.setState({ clicked: true})}>
           
