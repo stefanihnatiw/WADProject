@@ -28,11 +28,11 @@
 					<li><a href="#flask"><span>4.1 </span>Flask</a></li>
 					<li><a href="#reactJS"><span>4.2 </span>ReactJS</a></li>
 					<li><a href="#fastai"><span>4.3 </span>FastAI</a></li>
+					<li><a href="#matplotlib"><span>4.4 </span>Matplotlib</a></li>
+					<li><a href="#sparql"><span>4.5 </span>SPARQLWrapper</a></li>
 				</ol>
-			<li><a href="#"><span>5. </span>a</a></li>
-			<li><a href="#"><span>6. </span>a</a></li>
-			<li><a href="#"><span>7. </span>a</a></li>
-			<li><a href="#"><span>8. </span>a</a></li>
+			<li><a href="#references"><span>5. </span>References</a></li>
+
 		</ol>
         <article typeof="schema:ScholarlyArticle" resource="#">
 			<section typeof="sa:AuthorsList">
@@ -304,32 +304,65 @@ learn = cnn_learner(data, models.resnet50, metrics=accuracy, model_dir="/temp/mo
 						<img src="static/misc/fastai-lrfinder-train.png" width="437" height="426">
 						<figcaption>Fig.3 Example of a learning rate finder session and one cycle train in fastai</figcaption>
 					</figure>
+					<p><b>Usage: </b>In our project, we used the fastai library to train a neural network model to predict the artist (~66% accuracy, but doesn't really matter that much because we don't use it for artist prediction). This model, in turn will generate weight array for each painting and with these we can compute recommendations. Using a method from the 'AnnoyIndex' library, we get the nearest neighbors of a requested image and those neighbors are the recommandations.</p>
 				</section>
 
-				<section id="">
-					<h2>SPARQLWrapper</h2>
-					<p>SPARQLWrapper is a simple Python wrapper around a SPARQL service to remotely execute your queries. It helps in creating the query invocation and, possibly, convert the result into a more manageable format.</p>
-					<p>The simplest usage of this module looks as follows (using the default XML return format and special URI for the SPARQL Service):</p>
+				<section id="matplotlib">
+					<h3>4.4 Matplotlib</h3>
+					<p>Matplotlib is a powerful plotting library for Python meant to be similar in usage to MATLAB. By having NumPy as a dependency and an object-oriented approach, Matplotlib is probably the most widely used plotting library out there, that even SciPy uses it as default.</p>
+					<p>The flow for plotting is quite simple:</p>
+						<ol>
+							<li>Create a space for the plots: new figure or a sub-space in an already existing figure.</li>
+							<li>Plot some lines, points or geometric shapes: here, you have freedom of choice, there are limitless plots you can create.</li>
+							<li>Decorate the plots with labels, add grids, change tick distance etc.</li>
+							<li>Make it visible in the figure space using the <i>show()</i> method.</li>
+						</ol>
+					<p>As a complementary part to matplotlib, we use Seaborn, which is a plotting library built on top of matplotlib, to create more attractive and informative statistical visualizations. Seaborn provides a higher level interface that uses less syntax than matplotlib, while also integrating these functionalities with the popular dataframe structure used by <i>Pandas</i>.</p>
+					
+					<p>Here is an example plot using default styling in <b>matplotlib</b> (the plotting code is exactly the same for matplotlib and seaborn, this comparison only takes style into equation):</p>
+					<figure typeof="sa:Image">
+						<img src="static/misc/plt.png" width="380" height="256">
+						<figcaption>Fig.4 Matplotlib plot</figcaption>
+					</figure>
+					
+					<p>And the same plot, but in <b>Searborn</b>:</p>
+					<figure typeof="sa:Image">
+						<img src="static/misc/sns.png" width="495" height="343">
+						<figcaption>Fig.5 Seaborn plot</figcaption>
+					</figure>
+					<p>The code used for the plots above is the following:</p>
+<pre class="codeborder"># generate some random data
+random_gen = numpy.random.RandomState(0)
+x = numpy.linspace(0, 10, 500)
+y = numpy.cumsum(random_gen.randn(500, 6), 0)
+
+# plot and intialize a legend
+plt.plot(x, y)
+plt.legend('ABCDEF', ncol=2, loc='upper left')
+</pre>
+					<p><b>Usage: </b>Matplotlib is used in conjunction with Seaborn for data visualization (bar plots, pie charts, distributions, histograms etc.).</p>
+				</section>
+				
+				<section id="sparql">
+					<h3>4.5 SPARQLWrapper</h3>
+					<p>SPARQLWrapper is a Python wrapper around a SPARQL service to execute queries in a remote way. It facilitates query building and calling, while also converting the result into a prettier format.</p>
+					<p>The following is a simple usage of the SPARQLWrapper in Python (the result format is the default one, XML, and SPARQL Service is invoked with a special URI):</p>
 					<figure typeof="schema:SoftwareSourceCode">
 						<meta property="schema:name" content="python">
 <pre class="codeborder">
-from SPARQLWrapper import SPARQLWrapper
-
-queryString = "SELECT * WHERE { ?s ?p ?o. }"
+query = "SELECT * WHERE { ?s ?p ?o. }"
 sparql = SPARQLWrapper("http://example.org/sparql")
-sparql.setQuery(queryString)
+sparql.setQuery(query)
 
-try:
-	ret = sparql.query()  # ret is a stream with the results in XML
-except:
-	deal_with_the_exception()
+result = sparql.query()  # put the XML result in the stream variable
+
 </pre>
 					</figure>
 				</section>
 			</section>
 
-			<section typeof="sa:ReferenceList">
-				<h2>References</h2>
+			<section typeof="sa:ReferenceList" id="references">
+				<h2>5. References</h2>
 				<ol>
 					<li id="ref-flask" typeof="schema:Article" resource="https://core.ac.uk/download/pdf/55305148.pdf">
 						<span property="schema:author" typeof="schema:Person">
