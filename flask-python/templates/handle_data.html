@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+<h1>Your input was submitted.</h1>
+
+<p id="rcorners">The received data was: {{ fname }} {{ lname }}!</p>
+<img src="{{ url_for('static', filename = 'uploads/' + filename) }}"/>
+
+<p> Goodbye... </p>
+
+</body>
+</html>

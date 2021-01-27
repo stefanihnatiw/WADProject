@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Browse artists</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/menu.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body class="preload">
+
+    <div id="mySidenav">
+      <a href="javascript:void(0)" id="closeButton" onclick="updateNav()">&times;</a>
+
+      <button onclick="goHome()">Home</button>
+
+      <div id="pageSwitch">
+        <button onclick="prevPage()">🡠</button>
+        <div id="pageSwitchInput"></div>
+        <button onclick="nextPage()">🡢</button>
+      </div>
+
+    </div>
+
+    <span class="menuButton" onclick="updateNav()">&#9776; Menu</span>
+
+    <div id="image_div"></div>
+    
+    <script src="{{ url_for('static', filename='scripts/menu.js') }}" type="text/babel"></script>
+    <script src="{{ url_for('static', filename='scripts/browse_artists.js') }}" type="text/babel"></script>
+
+  </body>
+</html>
