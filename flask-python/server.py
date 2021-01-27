@@ -14,7 +14,7 @@ app.config['GRAPHS_FOLDER'] = os.path.join(app.config['DATASET_FOLDER'], 'graphs
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return redirect('/browse_images')
 
 @app.route('/getArtists', methods=['GET'])
 def get_artists():
