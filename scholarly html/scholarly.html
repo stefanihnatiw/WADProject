@@ -352,7 +352,7 @@ plt.legend('ABCDEF', ncol=2, loc='upper left')
 						<img src="static/misc/rdf.png" width="580" height="366">
 						<figcaption>Fig.6 RDF Triple</figcaption>
 					</figure>
-					<p>So, if, in the RDF graph, 'C' is those 6 wildcards, querying the graph after wildcards with no filter will give as result all 6 rows. Now, if we were to include a filter, say, the result should be an chemical element, we would get only 1 wildcard as result: 'Carbon'. This is called a join of two or more basic graph patterns.</p>
+					<p>So, if, in the RDF graph, 'C' is those 6 wildcards, querying the graph after wildcards with no filter will give as result all 6 rows. Now, if we were to include a filter, say, the result should be an chemical element, we would get only 1 wildcard as result: 'Carbon'. This is called a join of two or more basic graph patterns. This explanation leads to the usage of <b>RDFLib</b> in conjunction with <b>SPARQLWrapper</b>, a Python library for managing RDF graphs.</p>
 					
 					<p>The following is a simple usage of the SPARQLWrapper in Python (the result format is the default one, XML, and SPARQL Service is invoked with a special URI):</p>
 					<figure typeof="schema:SoftwareSourceCode">
