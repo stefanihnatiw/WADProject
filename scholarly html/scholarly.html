@@ -4,18 +4,37 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>IMOR Description</title>
+		<link rel="stylesheet" href="static/css/scholarly.min.css">
+		<title>IMOR Project Scholarly HTML</title>
 	</head>
 
 	<body prefix="schema: http://schema.org/
           		  xsd: http://www.w3.org/2001/XMLSchema#
           		  sa: https://ns.science.ai/">
+				  
+		<header>
+			<div class="banner">
+				<img src="static/misc/scholarly-html.svg" width="227" height="50" alt="Scholarly HTML logo">
+				<div class="status">WADE Project, FII UAIC</div>
+			</div>
+			<h1>IMOR Project Scholarly HTML</h1>
+		</header>
+		<ol role="directory">
+			<li><a href="#abstract"><span>1. </span>Abstract</a></li>
+			<li><a href="#introduction"><span>2. </span>Project Progress</a></li>
+			<li><a href="#dataset"><span>3. </span>The Dataset</a></li>
+			<li><a href="#implAPIs"><span>4. </span>Implemented APIs</a></li>
+				<ol role="directory">
+					<li><a href="#flask"><span>4.1 </span>Flask</a></li>
+					<li><a href="#reactJS"><span>4.2 </span>ReactJS</a></li>
+					<li><a href="#fastai"><span>4.3 </span>FastAI</a></li>
+					<li><a href="#matplotlib"><span>4.4 </span>Matplotlib</a></li>
+					<li><a href="#sparql"><span>4.5 </span>SPARQLWrapper</a></li>
+				</ol>
+			<li><a href="#references"><span>5. </span>References</a></li>
 
+		</ol>
         <article typeof="schema:ScholarlyArticle" resource="#">
-        	<header>
-			    <h1>IMOR Description</h1>
-			</header>
-
 			<section typeof="sa:AuthorsList">
 				<h2>Authors</h2>
 			    <ul>
@@ -36,143 +55,314 @@
 			    </ul>
 			</section>
 
-			<section typeof="sa:Abstract">
-				<h2>Considerations</h2>
+			<section typeof="sa:Abstract" id="abstract" role="doc-abstract">
+				<h2>1. Abstract</h2>
 				<p>We want to develop a web application based on microservices that can perform searching and filtering of images from a certain dataset using trained models to identify and visualize different characteristics. The main framework that interacts with microservices we want to use is Flask because of its integration with Python language and simplicity over other full-stack frameworks like Django. For the client side we intend on using ReactJS library for the easy integration with Flask. The backend part will be written in Python and should include machine learning algorithms on data visualization and identification implemented using the Keras API, data storing and retrieval using the H5py interface for easy manipulation using Keras, and SPARQLWrapper as an endpoint interface for Python.</p>
 			</section>
-
-			<section typeof="sa:MaterialsAndMethods">
-				<h2>Flask</h2>
-				<p>Flask is a micro framework of Python which provides the basic functionality of web framework and allows more plug-ins to be added so the functionality and feature set can be extended to a new level. Flask is called as micro framework of Python because it makes the core functionality simple but extensible in terms of development. It can also be used to save time building web applications. It has no database abstraction layer, form validation, or any other components. Flask supports extensions, which exist for object-relational mappers, form validation, upload handling, various open authentication technologies and more.</p>
-				<p>Flask structure is split into two parts, static files & template files, template files having all the templates include Html pages, whereas static files having all static code needed for websites such as CSS code, JavaScript code and Image files.</p>
-				<p>Features of Flask:</p>
-				<ol>
-					<li>Integrated supports for unit testing</li>
-					<li>Uses Jinja2 templating - modern and designer friendly templating language for python, modeled after Django's templates, with a syntax easy to visually distinguish from HTML code</li>
-					<li>Support for secure cookies</li>
-					<li>Extensive documentation</li>
-					<li>Google app engine compatibility</li>
-					<li>Restful request dispatching</li>
-					<li>Unicode based</li>
-				</ol>
-				<p>Hello World program in Flask is a basic example of Flask where we are importing Flask class using import function, then we are defining hello world function and then returning 'Hello World!':</p>
-				<figure typeof="schema:SoftwareSourceCode">
-			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
-			    		<meta property="schema:name" content="python">
-			    		<code>
-			    			from flask import Flask
-
-			    			app = Flask(__name__)
-
-			    			@app.route('/')
-			    			def hello_world():
-			    				return 'Hello World!'
-			    			
-			    			if __name__ == '__main__':
-			    				app.run()
-			    		</code>
-			  		</pre>
-				</figure>
-				<p>Great thing about Python and Flask is that it is portable and interactive language for web development. Python provides easy way to use standard libraries, works with almost all databases, powerful text processing and document processing facilities, and plays well with other web technologies.</p>
-			</section>
-
-			<section typeof="sa:MaterialsAndMethods">
-				<h2>ReactJS</h2>
-				<p>ReactJS is a component-based library which is deployed for the development of interactive user interfaces. Currently it is the most popular front-end JS library. It incorporates the view (V) layer in the MVC (Model View Controller) pattern. It is supported by Facebook, Instagram and a community of individual developers and organizations. React basically enables development of large and complex web-based applications which can change their data without subsequent page refreshes. It targets to provide better user experiences and with blazing fast and robust web apps development.</p>
-				<p>Features of React:</p>
-				<ol>
-					<li>Lightweight DOM for Better Performance - it does not interact with the DOM generated by the browser but reacts to the document object model stored in the memory which results in a blazing fast and robust performance of the application</li>
-					<li>Easy Learning Curve - a developer gets along with the framework very easily</li>
-					<li>JSX - highly popular language which is very similar to the tech giant XML, not mandatory but helps in making development easier, whenever writing mark-ups for components and the corresponding binding events</li>
-					<li>Performance – highly efficient framework because it uses a virtual DOM feature</li>
-					<li>One-way data flow – it is designed in such a way that unidirectional data flow that is downstream is allowed and supported, making it well-known for the generation of canonical data sources that remains synchronized across the components that which pay attention to it</li>
-					<li>Virtual DOM - key feature, similar to the document object model generated by the browser but with a difference that it is stored it memory. Whenever a request for changing the page content is made, the changes are reflected to the memory residing virtual DOM first. After that, a diff() algorithm compares the virtual DOM and the browser DOM an then the required changes only are reflected to the browser DOM, instead of re-rendering the entire DOM. This provides a gigantic boost to the performance of application, essentially when thousands of data changes are to be made</li>
-				</ol>
-				<p>The Component is the major building-block in React. The entire user interface can be designed by assembling a tree of multiple components. An intermediate DOM is generated by the render() method present in each of the React components. As shown in Fig.1, a call to the React.renderComponent() method on the root Component leads to recursively going down the Component tree and generating the intermediate-DOM. Then afterwards this intermediate DOM is converted to the actual HTML DOM.</p>
-				<figure typeof="sa:Image">
-					<img src="fig1.png" width="600" height="300">
-					<figcaption>Fig.1 Conversion of intermediate DOM to HTML DOM</figcaption>
-				</figure>
-				<p>React makes use of a convenient XML-based extension to JavaScript, known as the JSX, to generate the component tree as a combination of multiple XML nodes. This makes DOM visualization and understanding easy and much more convenient. JSX also plays a key role in simplifying the association of the event handlers and properties as XML attributes. The final JavaScript is generated using a command line and in browser tool. A Component is directly mapped by a JSX XML node. It is important to note that React works independent of JSX and the using JSX only plays the task of simplifying the task of generating intermediate DOM.</p>
-				<p>React has a few limitations too that must be considered:</p>
+			
+			<section id="introduction" role="doc-introduction">
+				<h2>2. Project Progress</h2>
+				<p>The main requested <b>requirements</b> of this project are:</p>
 				<ul>
-					<li>Only the View entity in the mobile view controller or MVC is handled by the react. Therefore, additional tooling is required in order to complete the project development</li>
-					<li>Use of inline templates and JSX sometimes proves to be an intensively complex and tiring task for a small set of developers</li>
-					<li>Also, in case of ReactJS, failures happen at compile time instead of runtime as in case of other languages and frameworks, which can sometimes be very frustrating and tiring</li>
+					<li>consider <a href="https://www.kaggle.com/datasets?sortBy=relevance&group=featured&search=image">Kaggle Image Datasets</a> and pick one or more to work with</li>
+					<li>develop a system based on microservices capable of browsing, filtering etc.</li>
+					<li>make use of machine learning techniques and semantic web technologies</li>
+					<li>generate visualizations, recommandations, classifications and correlations</li>
+					<li>create a comparative study to explain results</li>
 				</ul>
+				<p>Our <b>initial goals</b> for this project were to:</p>
+				<ul>
+					<li>firstly get accustomed to and become comfortable with the technologies we were going to work with (because we were basically beginners with web development at this scale)</li>
+					<li>secondly meet as many goals as we could, within the time margin we had and our knowledge</li>
+					<li>employ machine learning sub-components</li>
+					<li>pass this component</li>
+				</ul>
+				<p>The realistic <b>current outcome</b> is that we managed to create a functional website, albeit not complicated, still trying to work continuously until the deadline so that we can add/improve features and meet more requirements...</p>
+			</section>
+			
+			<section typeof="sa:MaterialsAndMethods" id="dataset">
+				<h2>3. The Dataset</h2>
+				<p> The dataset we initially wanted to work with was:
+					<figure>
+						<a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">Stanford Dogs Dataset, with over 20,000 images of 120 dog breeds.</a>
+					</figure>
+				</p>
+				<p>
+					We quickly realized that this dataset did not feel right for us, it was not suited for an image browser (because what is the point of browsing random dogs?) and had no labels for the images (just classes and the bounding boxes), so we started searching for another dataset and found:
+					<figure>
+						<a href="https://www.kaggle.com/ikarus777/best-artworks-of-all-time">Best Artworks of All Time, Collection of Paintings of the 50 Most Influential Artists of All Time.</a>
+					</figure>
+				</p>
+				<p>The 'Best Artworks of All Time' is structured as follows:
+					<ul>
+						<li><i>images</i> folder containing full sized paintings, sequentially numbered, structured in a separate folder for each artist</li>
+						<li><i>resized</i> folder containing the same paintings, sequentially numbered, but in a smaller size (useful for machine learning) and extracted from their respective folders into a single folder</li>
+						<li><i>artists.csv</i> file containing basic information about the 50 chosen artists</li>
+					</ul>
+				</p>
+				<p>The data in <i>artists.csv</i> has the following columns:
+					<ul>
+						<li><b>name:</b> name of the artist</li>
+						<li><b>years:</b> birth year and the death year, separated by a dash</li>
+						<li><b>genre:</b> the genres of the paintings created by the artist</li>
+						<li><b>nationality:</b> ethnic group of the artist</li>
+						<li><b>bio:</b> short description of the artist (taken from the artist's wikipedia page, usually a paragraph or two)</li>
+						<li><b>wikipedia:</b> link to the artist's wikipedia page</li>
+						<li><b>paintings:</b> number of paintings gathered in the artist's respective folder</li>
+					</ul>
+				</p>
+				<p><b>NOTE:</b> the dataset is slightly modified from the original one because of character encoding issues... The <i>artists.csv</i> file had a lot of modifications done to it (the bio column being basically redone from scratch). As for the paintings, 'Albrecht Durer' had two sets of identical files, but with slightly different names (due to loss of original encoding), so we kept only one set, renamed to the correct artist name.</p>
+			</section>
+			
+			<section typeof="sa:MaterialsAndMethods" id="implAPIs"> 
+				<h2>4. Implemented APIs</h2>
+				
+				<section id="flask">
+					<h3>4.1 Flask</h3>
+					<p><a href="https://palletsprojects.com/p/flask/">Flask</a> is a web framework written in Python, based on micro-services. Flask makes the core functionality simple yet extensible, saving time to create web applications. It does not require any separate tools or libraries, but it is based on two popular engines: <a href="https://palletsprojects.com/p/werkzeug/">Werkzeug</a> (collection of WSGI libraries) and <a href="https://palletsprojects.com/p/jinja/">Jinja (template engine).</a></p>
+					<p>Example of a very simple 'Hello, World!' page, using purely werkzeug's request and response (<a href="https://palletsprojects.com/p/werkzeug/">credit</a>):</p>
+					<figure typeof="schema:SoftwareSourceCode">
+						<meta property="schema:name" content="python">
+<pre class="codeborder">
+from werkzeug.wrappers import Request, Response
+
+@Request.application
+def application(request):
+	return Response("Hello, World!")
+
+if __name__ == "__main__":
+	from werkzeug.serving import run_simple
+	run_simple("localhost", 5000, application)
+</pre>
+					</figure>
+					<p>Example of a template using Jinja, which generates a custom unordered list containing links to all found users in the variable passed by Flask (<a href="https://palletsprojects.com/p/jinja/">credit</a>):</p>
+					<figure typeof="schema:SoftwareSourceCode">
+						<meta property="schema:name">
+<pre class="codeborder">
+{% extends "layout.html" %}
+{% block body %}
+  &lt;ul&gt;
+  {% for user in users %}
+    &lt;li&gt;&lt;a href="{{ user.url }}"&gt;{{ user.username }}&lt;/a&gt;&lt;/li&gt;
+  {% endfor %}
+  &lt;/ul&gt;
+{% endblock %}
+</pre>
+					</figure>
+					<p>Flask works with two main folders:
+						<ul>
+							<li><i>template</i>, which contains HTML files to be parsed by Flask as needed (can contain Jinja templates).</li>
+							<li><i>static</i>, which contains miscellaneous files that do not change such as CSS stylesheets, JS scripts and resources (images, text etc.).</li>
+						</ul>
+					</p>
+					<p>Features of Flask:</p>
+					<ol>
+						<li>based on the Unicode encoding</li>
+						<li>uses REST API</li>
+						<li>Development server (seeing real-time changes without redeploying)</li>
+						<li>Support for unit testing</li>
+						<li>Client side secure cookies</li>
+						<li>Mature documentation</li>
+						<li>High compatibility with other frameworks</li>
+						<li>Lots of extensions available which enrich the functionalities</li>
+						
+						
+					</ol>
+					<p>Basic example of a Flask URL routing, demonstrating the use of the 'route' decorator:</p>
+					<figure typeof="schema:SoftwareSourceCode">
+						<meta property="schema:name">
+<pre class="codeborder">@app.route("/")
+def index():
+    return "Index"
+		
+@app.route("/hello")
+def hello():
+    return "Hello!"
+</pre>
+					</figure>
+					<p>Great thing about Flask is that it is a portable and interactive web development language. It is easy to get into it and understand the few powerful functions that are the 'bread and butter' of the framework, while also giving the ability to scale into complex applications. It offer freedom of choice, not enforcing the use of any dependency. The developer chooses what they want to use in terms of external tools and libraries.</p>
+					<p><b>FUN FACT:</b> Pinterest and LinkedIn both use Flask.</p>
+				</section>
+
+				<section id="reactJS">
+					<h3>4.2 ReactJS</h3>
+					<p>React is the most popular front-end JS library. Moreover, it is open-source and maintained by Facebook and Instagram. It is used for easy building of interactive UI for the client side view. ReactJS represents the V (view) layer in the Model View Controller (MVC) pattern. React makes development of large and complex web-based applications easy. On top of that, its goal is to have fast performance, while at the same time, providing robustness and attractive UIs, for better user experiences overall.</p>
+					<p>Features of ReactJS:</p>
+					<ol>
+						<li><b>Virtual DOM</b> - most notable feature, this allows React to be fast in its processing times, not having to parse the HTML, making the requested change, updating the real DOM with the new model, recompute the CSS stylesheets, update the layout (exact coordinates) and finally show apply the layout on the browser screen every single time a small change is done. That would require big waiting times, which would make real time development on a web page a pain. Instead, a virtual DOM (an in-memory data cache structure) is used, employing a process called reconciliation to efficiently compute the differences and send them to the browser's DOM to be displayed. This way, the developer sees the entire page as being rendered again, while, instead, only the requested sub-component of the DOM was changed. </li>
+						</br><li><b>Performance</b> – as said before, using a virtual DOM provides a major performance boost.</li>
+						</br><li><b>Easier than average Learning Curve</b> - React's syntax is relatively easy to grasp, IF you are already somewhat acquainted with JavaScript and HTML. So, from a conceptual standpoint, even a beginner could learn to use React properly, but to master it is another issue altogether... For larger scale applications, using purely React will hinder your ability to efficiently manage states, transfer data from the frontend to backend or bundle your code into a dependency graph.</li>
+						</br><li><b>JSX</b> - HTML-like syntax that can be used with React to intuitively and easily create dynamic React components. Note that this could theoretically be achieved even with simple JS, but JSX makes the process a lot easier.</li>
+						</br><li><b>React hooks</b> - these are functions that allow developers to 'hook into' React states (used for controlling state and side effects respectively). Some examples would be: <i>useState</i>, <i>useContext</i>, <i>useReducer</i> and <i>useEffect</i>.
+							The modern way to handle states with React advises a couple of rules
+							<ul>
+								<li>Do not call hooks inside or if statements loops.</li>
+								<li>Do not call hooks from normal functions or class components (only React function components).</li>
+							</ul>
+						Although these rules are not enforced, they are recommended to be followed, a thing made easier by using a code analysis tool such as <i>linters</i>.
+						</li>
+						</br><li><b>Lifecycle methods</b> – by using a form of <i>hooking</i>, execution of code at specific times in the lifetime of a component is possible:
+							<ul>
+								<li><b>shouldComponentUpdate: </b>if a render is not required for a component, return false to let the virtual DOM know that it should be omitted.</li>
+								<li><b>componentDidMount: </b>called when a component was associated in the DOM tree with a node. Commonly used for event triggers.</li>
+								<li><b>componentWillUnmount: </b>called when a component was dissociated from the DOM tree. Commonly used for clearing resource-demanding zombie nodes.</li>
+								<li><b>render: </b>required for any component, called when the state of the component has changed so that the change can be posted in the real DOM.</li>
+							</ul>
+						</li>
+					</ol>
+					<p>The Component is one of the basic building blocks of React. In other words, we may assume that pieces called components can make up any application you create in React. The job of creating UIs is much easier with components. You will see an UI split into several different components and work on them separately and combine them all into a parent component that will be the final UI.
+						There are two ways of declaring components in React:
+						<ul>
+							<li><b>Functional components: </b>simply javascript functions that return JSX code. These functions have the possibility of receiving data as arguments.</li>
+							<li><b>Class components: </b>whereas function components do not know of eachother's existence, class components do, hence a complexity increase. Data can even be passed between class components.</li>
+						</ul>
+					</p>
+					<figure typeof="sa:Image">
+						<img src="static/misc/reactJSdom.png" width="562" height="262">
+						<figcaption>Fig.1 How a real DOM is processed for a page render</figcaption>
+					</figure>
+					<p> React makes use of an extension to JavaScript, JSX, to generate the DOM as a combination of multiple nodes. It is important to note that React and JSX work independently and JSX simplifies the task of generating intermediate DOMs. Mixing HTML and JavaScript code in the same file is a rather controversial topic. The truth is, JSX makes scripts easier to read and write, compared to amalgamations of lengthy JS function calls, object literals and obscure parameters. So, basically, JSX can turn <b>this</b>...
+<pre class="codeborder">var nav = React.createElement(
+    "ul", {
+        id: "nav"
+    },
+    React.createElement(
+        "li",
+        null,
+        React.createElement(
+            "a", {
+                href: "#"
+            },
+            "Home"
+        )
+    ),
+    React.createElement(
+        "li",
+        null,
+        React.createElement(
+            "a", {
+                href: "#"
+            },
+            "About"
+        )
+    ),
+    React.createElement(
+        "li",
+        null,
+        React.createElement(
+            "a", {
+                href: "#"
+            },
+            "Contact Us"
+        )
+    )
+);
+</pre>
+					<p>Into <b>this</b>...</p>
+<pre class="codeborder">var nav = (
+    &lt;ul id="nav"&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Contact Us&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+);
+</pre>
+					<p>React has a few disadvantages that have to be taken into consideration:</p>
+					<ul>
+						<li>React handles solely the V (view) layer in the Model View Controller (pattern). Therefore, it needs to be coupled with external frameworks/libraries to get the full stack.</li>
+						<li>Use of inline templates and JSX sometimes proves to be an complex and tiring task for a small team of developers</li>
+						<li>Search engines indexing problems, due to nonisomorphic approaches to backend-frontend communication.</li>
+					</ul>
+				</section>
+
+				<section id="fastai">
+					<h3>4.3 FastAI</h3>
+					<p>FastAI is a highly performant, easy to use and flexible deep learning library based on PyTorch, providing developers with a high-level syntax, abstracting the complicated sub-layer of mathematics and neural networks. This allows easy and fast training, giving state-of-the-art models, whilst also providing researchers with low-level syntax, suiting their every need. The underlying architecture is a result of analysis upon many data processing and machine learning models, the result being patterns (common things found amongst these models) expressed as abstractions. The dynamic nature of the Python language and the flexibility of the PyTorch library both allow these abstractions to be implemented concisely, in a clear way.</p>
+					<p>FastAI features:</p>
+					<ul>
+						<li>Everything is easier to develop, due to less code having to be written, saving the developer the effort of having to design each of the individual layers layers.</li>
+						<li>It makes use of the GPU using a computer vision library (fastgpu).</li>
+						<li>Has pre-trained models, such as alexnet, resnet18 (34, 50, 101, 152), densenet121 (161, 169, 201), vgg16_bn (19) or squeezenet1_0 (1_1), all complementing PyTorch, which in itself mainly used to build and train models such as these listed here. </li>
+						<li>2-way callback system, used in accessing, at any time in the training, data, the model or optimizer.</li>
+						<li>Provides the developer with a learning rate finder (no more experimenting with learning rate values), included pre-processing, data augmentation, training and testing and validation.</li>
+					</ul>
+					<figure typeof="sa:Image">
+						<img src="static/misc/fastai-layers.png" width="464" height="609">
+						<figcaption>Fig.2 fastai API layers and application components</figcaption>
+					</figure>
+					
+					<p>So what does this all mean? It means that fastai figures it all out itself: data pre-processing and augmentation, best architecture for your data, best training parameters for your model, best learning rate to achieve convergence as fast as possible. On top of all this, fastai automates as much as it can, resulting in less human error and allowing the developer to focus on results rather than design.</p>
+					<p>Here is a slightly simplified example of a learning model initialization (resnet50), from a folder, with augmentation automatically applied and labels taken from the name of the folder:</p>
+<pre class="codeborder">path = Path('../best-artworks-dataset/images/images')
+tfms = get_transforms(max_rotate= 10.,max_zoom=1., max_lighting=0.20, do_flip=False, max_warp=0.)
+src = (ImageList.from_folder(path).label_from_folder())
+data = (src.transform(tfms, resize_method=ResizeMethod.CROP, padding_mode='border', size=128))
+
+learn = cnn_learner(data, models.resnet50, metrics=accuracy, model_dir="/temp/model" )
+</pre>
+					<figure typeof="sa:Image">
+						<img src="static/misc/fastai-lrfinder-train.png" width="437" height="426">
+						<figcaption>Fig.3 Example of a learning rate finder session and one cycle train in fastai</figcaption>
+					</figure>
+					<p><b>Usage: </b>In our project, we used the fastai library to train a neural network model to predict the artist (~66% accuracy, but doesn't really matter that much because we don't use it for artist prediction). This model, in turn will generate weight array for each painting and with these we can compute recommendations. Using a method from the 'AnnoyIndex' library, we get the nearest neighbors of a requested image and those neighbors are the recommandations.</p>
+				</section>
+
+				<section id="matplotlib">
+					<h3>4.4 Matplotlib</h3>
+					<p>Matplotlib is a powerful plotting library for Python meant to be similar in usage to MATLAB. By having NumPy as a dependency and an object-oriented approach, Matplotlib is probably the most widely used plotting library out there, that even SciPy uses it as default.</p>
+					<p>The flow for plotting is quite simple:</p>
+						<ol>
+							<li>Create a space for the plots: new figure or a sub-space in an already existing figure.</li>
+							<li>Plot some lines, points or geometric shapes: here, you have freedom of choice, there are limitless plots you can create.</li>
+							<li>Decorate the plots with labels, add grids, change tick distance etc.</li>
+							<li>Make it visible in the figure space using the <i>show()</i> method.</li>
+						</ol>
+					<p>As a complementary part to matplotlib, we use Seaborn, which is a plotting library built on top of matplotlib, to create more attractive and informative statistical visualizations. Seaborn provides a higher level interface that uses less syntax than matplotlib, while also integrating these functionalities with the popular dataframe structure used by <i>Pandas</i>.</p>
+					
+					<p>Here is an example plot using default styling in <b>matplotlib</b> (the plotting code is exactly the same for matplotlib and seaborn, this comparison only takes style into equation):</p>
+					<figure typeof="sa:Image">
+						<img src="static/misc/plt.png" width="380" height="256">
+						<figcaption>Fig.4 Matplotlib plot</figcaption>
+					</figure>
+					
+					<p>And the same plot, but in <b>Searborn</b>:</p>
+					<figure typeof="sa:Image">
+						<img src="static/misc/sns.png" width="495" height="343">
+						<figcaption>Fig.5 Seaborn plot</figcaption>
+					</figure>
+					<p>The code used for the plots above is the following:</p>
+<pre class="codeborder"># generate some random data
+random_gen = numpy.random.RandomState(0)
+x = numpy.linspace(0, 10, 500)
+y = numpy.cumsum(random_gen.randn(500, 6), 0)
+
+# plot and intialize a legend
+plt.plot(x, y)
+plt.legend('ABCDEF', ncol=2, loc='upper left')
+</pre>
+					<p><b>Usage: </b>Matplotlib is used in conjunction with Seaborn for data visualization (bar plots, pie charts, distributions, histograms etc.).</p>
+				</section>
+				
+				<section id="sparql">
+					<h3>4.5 SPARQLWrapper</h3>
+					<p>SPARQLWrapper is a Python wrapper around a SPARQL service to execute queries in a remote way. It facilitates query building and calling, while also converting the result into a prettier format.</p>
+					<p>The following is a simple usage of the SPARQLWrapper in Python (the result format is the default one, XML, and SPARQL Service is invoked with a special URI):</p>
+					<figure typeof="schema:SoftwareSourceCode">
+						<meta property="schema:name" content="python">
+<pre class="codeborder">
+query = "SELECT * WHERE { ?s ?p ?o. }"
+sparql = SPARQLWrapper("http://example.org/sparql")
+sparql.setQuery(query)
+
+result = sparql.query()  # put the XML result in the stream variable
+
+</pre>
+					</figure>
+				</section>
 			</section>
 
-			<section typeof="sa:MaterialsAndMethods">
-				<h2>Keras API</h2>
-				<p>Keras is a deep learning API written in Python, running on top of the machine learning platform TensorFlow. It was developed with a focus on enabling fast experimentation, being able to go from idea to result as fast as possible is key to doing good research. It offers consistent & simple APIs, it minimizes the number of user actions required for common use cases, and it provides clear and actionable feedback upon user error.</p>
-				<p>Keras ranked as #1 for deep learning both among primary frameworks and among all frameworks used.</p>
-				<figure typeof="sa:Image">
-					<img src="fig2.png" width="600" height="300">
-					<figcaption>Fig.2 Primary ML software tool used by top-5 teams on Kaggle in each competition (n=120)</figcaption>
-				</figure>
-				<p>The core data structures of Keras are layers and models. The simplest type of model is the Sequential model, a linear stack of layers. For more complex architectures, the Keras functional API allows to build arbitrary graphs of layers, or write models entirely from scratch via subclasssing.</p>
-				<p>Here is an example of the Sequential model with 2 layers and how to compile it:</p>
-				<figure typeof="schema:SoftwareSourceCode">
-			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
-			    		<meta property="schema:name" content="python">
-			    		<code>
-			    			from tensorflow.keras.models import Sequential
-
-			    			model = Sequential()
-			    			model.add(Dense(units=64, activation='relu'))
-			    			model.add(Dense(units=10, activation='softmax'))
-
-			    			model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-			    		</code>
-			  		</pre>
-				</figure>
-				<p>Then, training on a given set (x_train, y_train) and testing the model with a test set (x_test) can be achieved like this:</p>
-				<figure typeof="schema:SoftwareSourceCode">
-			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
-			    		<meta property="schema:name" content="python">
-			    		<code>
-			    			model.fit(x_train, y_train, epochs=5, batch_size=32)
-			    			classes = model.predict(x_test, batch_size=128)
-			    		</code>
-			  		</pre>
-				</figure>
-				<p>Keras is also a highly-flexible framework suitable to iterate on state-of-the-art research ideas. Keras follows the principle of progressive discloure of complexity: it makes it easy to get started, yet it makes it possible to handle arbitrarily advanced use cases, only requiring incremental learning at each step.</p>
-			</section>
-
-			<section typeof="sa:MaterialsAndMethods">
-				<h2>H5py interface</h2>
-				<p>The h5py package is a Pythonic interface to the HDF5 binary data format.</p>
-				<p>It lets you store huge amounts of numerical data, and easily manipulate that data from NumPy. For example, you can slice into multi-terabyte datasets stored on disk, as if they were real NumPy arrays. Thousands of datasets can be stored in a single file, categorized and tagged however you want.</p>
-				<p>H5py uses straightforward NumPy and Python metaphors, like dictionary and NumPy array syntax. For example, you can iterate over datasets in a file, or check out the shape or dtype attributes of datasets. You don't need to know anything special about HDF5 to get started.</p>
-				<p>In addition to the easy-to-use high-level interface, h5py rests on an object-oriented Cython wrapping of the HDF5 C API. Almost anything you can do from C in HDF5, you can do from h5py.</p>
-				<p>Best of all, the files you create are in a widely-used standard binary format, which you can exchange with other people, including those who use programs like IDL and MATLAB.</p>
-			</section>
-
-			<section typeof="sa:MaterialsAndMethods">
-				<h2>SPARQLWrapper</h2>
-				<p>SPARQLWrapper is a simple Python wrapper around a SPARQL service to remotely execute your queries. It helps in creating the query invocation and, possibly, convert the result into a more manageable format.</p>
-				<p>The simplest usage of this module looks as follows (using the default XML return format and special URI for the SPARQL Service):</p>
-				<figure typeof="schema:SoftwareSourceCode">
-			  		<pre property="schema:programmingLanguage" typeof="schema:Language">
-			    		<meta property="schema:name" content="python">
-			    		<code>
-			    			from SPARQLWrapper import SPARQLWrapper
-
-			    			queryString = "SELECT * WHERE { ?s ?p ?o. }"
-			    			sparql = SPARQLWrapper("http://example.org/sparql")
-			    			sparql.setQuery(queryString)
-
-			    			try:
-			    				ret = sparql.query()  # ret is a stream with the results in XML
-			    			except:
-			    				deal_with_the_exception()
-			    		</code>
-			  		</pre>
-				</figure>
-			</section>
-
-			<section typeof="sa:ReferenceList">
-				<h2>References</h2>
+			<section typeof="sa:ReferenceList" id="references">
+				<h2>5. References</h2>
 				<ol>
 					<li id="ref-flask" typeof="schema:Article" resource="https://core.ac.uk/download/pdf/55305148.pdf">
 						<span property="schema:author" typeof="schema:Person">
@@ -205,21 +395,6 @@
     						property="schema:datePublished" datetime="2018-03" datatype="xsd:gYearMonth">2018 Mar</time>;
     						<span property="schema:volumeNumber">5</span>
   						</span>
-					</li>
-
-					<li id="ref-keras" typeof="schema:WebSite" resource="https://keras.io/guides/">
-						<span property="schema:author" typeof="schema:Organization">
-	    					<span property="schema:name">Keras SIG</span>
-						</span>.
-						<span property="schema:name">Keras Guides</span>
-					</li>
-
-					<li id="ref-h5py" typeof="schema:WebSite" resource="https://www.h5py.org/">
-						<span property="schema:author" typeof="schema:Person">
-	    					<span property="schema:givenName">Andrew</span>
-	    					<span property="schema:familyName">Collette</span>
-						</span>.
-						<span property="schema:name">H5py interface</span>
 					</li>
 
 					<li id="ref-sparql" typeof="schema:WebSite" resource="https://github.com/RDFLib/sparqlwrapper">
