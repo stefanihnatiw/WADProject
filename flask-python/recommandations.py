@@ -133,5 +133,4 @@ def filter_files(set_filters, search_input):
             search_flag = True
         if artist_flag and search_flag:
             res.append(filename)
-    print(len(res))
     return res

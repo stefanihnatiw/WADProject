@@ -2,7 +2,7 @@ import os, base64, json, csv, random
 from flask import *
 import recommandations, rdf
 from recommandations import get_data, get_similar_images, get_artists_list, filter_files, get_artist_data
-from rdf import get_artist_wiki
+from rdf import get_artist_wiki, graph
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -158,54 +158,26 @@ def visualize(tip):
     return render_template('visualize.html', type=tip)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return 'POST request'
-    elif request.method == 'GET':
-        return 'GET request'
-
-
-@app.route('/submit', methods=['GET', 'POST'])
-def submit():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'img' not in request.files:
-            flash('No file part', 'error')
-            return redirect(request.url)
-        file = request.files['img']
-        # if user does not select file, browser submits an empty part without filename
-        if file.filename == '':
-            flash('No selected file', 'error')
-            return redirect(request.url)
-        if file:
-            filename = file.filename
-            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            fname = request.form.get('fname')
-            lname = request.form.get('lname')
-            return render_template('handle_data.html', fname=fname, lname=lname, filename=filename)
+@app.route("/sparql", methods=['GET'])
+def sparql_get():
+    if 'query' in request.args:
+        query_res = graph.query(request.args['query'])
+        return render_template('sparql.html', tabledata=Markup(html_serialize(query_res)))
     else:
-        return render_template('submit.html')
+        return render_template('sparql.html')
 
+def html_serialize(result):
+    """
+    Outputs the result of a rdflib.query
+    """
+    output = '    <tr>\n'
+    for v in result.vars:
+        output += '        <th>%s</th>\n' % v
+    output += '    </tr>\n'
 
-@app.route('/user/<username>')
-def profile(username):
-    return '{}\'s profile'.format(escape(username))
-
-
-@app.route('/projects/')
-def projects():
-    return 'The project page'
-
-
-@app.route('/about')
-def about():
-    return 'The about page'
-
-
-with app.test_request_context():
-    print(url_for('index'))
-    print(url_for('login'))
-    print(url_for('login', next='/'))
-    print(url_for('profile', username='John Doe'))
+    for row in result:
+        output += '    <tr>\n'
+        for val in row:
+            output += '        <td>%s</td>\n' % (val if (val is not None) else '')
+        output += '    </tr>'
+    return output
