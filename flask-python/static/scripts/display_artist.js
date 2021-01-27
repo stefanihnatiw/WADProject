@@ -61,7 +61,7 @@ class Works extends React.Component {
 class MainImage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {image: null};
+    this.state = {wiki: null, clicked: false};
     this.fetchImage = this.fetchImage.bind(this);
   }
 
@@ -69,7 +69,7 @@ class MainImage extends React.Component {
     fetch('http://localhost:5000/getArtistImage/'.concat(this.props.artist.name))
     .then(res => res.json())
     .then((data) => {
-      this.setState({ image: data.image })
+      this.setState({ wiki: data.wiki, clicked: false })
     })
     .catch(console.log)
   }
@@ -79,16 +79,22 @@ class MainImage extends React.Component {
   }
 
   render() {
-    return this.state.image ? (
+    if(this.state.clicked === true) {
+      window.location.href = this.state.wiki.article;
+    }
+
+    return this.state.wiki ? (
         <img 
-          src={this.state.image}
+          src={this.state.wiki.image}
           alt={this.props.artist.name} 
           style={{'max-height': '50vh',
                   'max-width': '300px',
                   'display': 'block',
                   'margin-left': 'auto',
-                  'margin-right': 'auto'
+                  'margin-right': 'auto',
+                  'cursor': 'pointer'
                 }}
+          onClick={() => this.setState({ clicked: true})}
         />
       ) : (
         <span>Loading image...</span>

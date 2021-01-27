@@ -1,6 +1,6 @@
 import os, base64, json, csv, random
 from flask import *
-import recommandations
+import recommandations, rdf
 from recommandations import get_data, get_similar_images, get_artists_list, filter_files, get_artist_data
 from rdf import get_artist_wiki
 
@@ -70,7 +70,7 @@ def display_image(filename):
 @app.route('/getArtistImage/<artistname>', methods=['GET'])
 def get_artist_image(artistname):
     artist_wiki = get_artist_wiki(artistname.replace("_", " "))
-    return jsonify({'image': artist_wiki["image"]["value"]})
+    return jsonify({'wiki': artist_wiki})
 
 
 @app.route('/getArtistData/<artistname>', methods=['GET'])
