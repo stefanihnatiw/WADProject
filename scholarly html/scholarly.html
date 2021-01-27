@@ -31,7 +31,8 @@
 					<li><a href="#matplotlib"><span>4.4 </span>Matplotlib</a></li>
 					<li><a href="#sparql"><span>4.5 </span>SPARQLWrapper</a></li>
 				</ol>
-			<li><a href="#references"><span>5. </span>References</a></li>
+			<li><a href="#usageguide"><span>5. </span>User's guide</a></li>
+			<li><a href="#references"><span>6. </span>References</a></li>
 
 		</ol>
         <article typeof="schema:ScholarlyArticle" resource="#">
@@ -346,6 +347,13 @@ plt.legend('ABCDEF', ncol=2, loc='upper left')
 				<section id="sparql">
 					<h3>4.5 SPARQLWrapper</h3>
 					<p>SPARQLWrapper is a Python wrapper around a SPARQL service to execute queries in a remote way. It facilitates query building and calling, while also converting the result into a prettier format.</p>
+					<p><b>SPARQL</b> is basically a set of specifications and query language that makes it easier to query and manipulate RDF graph data on the Web. Complex relationships can be explored in the RDF graph data by using a process called <i>graph pattern matching</i>. Unions, adhering, joining to other patterns or sequencing are some examples of explorations that can be employed. A <i>basic graph pattern</i> is made up of a subject, predicate and object. Here is an <i>example</i>:</p>
+					<figure typeof="sa:Image">
+						<img src="static/misc/rdf.png" width="580" height="366">
+						<figcaption>Fig.6 RDF Triple</figcaption>
+					</figure>
+					<p>So, if, in the RDF graph, 'C' is those 6 wildcards, querying the graph after wildcards with no filter will give as result all 6 rows. Now, if we were to include a filter, say, the result should be an chemical element, we would get only 1 wildcard as result: 'Carbon'. This is called a join of two or more basic graph patterns.</p>
+					
 					<p>The following is a simple usage of the SPARQLWrapper in Python (the result format is the default one, XML, and SPARQL Service is invoked with a special URI):</p>
 					<figure typeof="schema:SoftwareSourceCode">
 						<meta property="schema:name" content="python">
@@ -360,9 +368,34 @@ result = sparql.query()  # put the XML result in the stream variable
 					</figure>
 				</section>
 			</section>
-
+			<section id="usageguide">
+				<h2>5. User's guide</h2>
+				<p>Our art browser app is thought out to be pretty much intuitive, so nobody should have any difficulties navigating it. You have available features like: on-the-spot paintings recommandation, artist browsing (with image provided by direct connection with Wikidata), graphs visualization, quick link to the painting's artist in case of interest.</p>
+				
+				<p><b>USE CASE 1: </b>Searching using the browse bar by artist or genre keywords, then filter the resulting paintings by artist.</p>
+				<figure>
+					<video width="854" height="480" controls>
+						<source src="static/misc/search_artist_genre.mp4" type="video/mp4">
+					</video>
+				</figure>
+				
+				<p><b>USE CASE 2: </b>Browse the artists and click on one of them to see more information (the image is taken from Wikidata), then click on one of their paintings. Here you can see recommandations (similar paintings that you may be interested in) that you can click on to see it in full. Finally, the artist name can be clicked to go to their details page.</p>
+				<figure>
+					<video width="854" height="480" controls>
+						<source src="static/misc/artists_recomm.mp4" type="video/mp4">
+					</video>
+				</figure>
+				
+				<p><b>USE CASE 3: </b>Browse visualizations. There are two sections: related to age and not related to age. The graphs are showcasing primarily number of paintings made based on some criteria, or nationality distributions etc.</p>
+				<figure>
+					<video width="854" height="480" controls>
+						<source src="static/misc/graphs.mp4" type="video/mp4">
+					</video>
+				</figure>
+			</section>
+			
 			<section typeof="sa:ReferenceList" id="references">
-				<h2>5. References</h2>
+				<h2>6. References</h2>
 				<ol>
 					<li id="ref-flask" typeof="schema:Article" resource="https://core.ac.uk/download/pdf/55305148.pdf">
 						<span property="schema:author" typeof="schema:Person">
