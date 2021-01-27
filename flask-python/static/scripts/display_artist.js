@@ -58,6 +58,45 @@ class Works extends React.Component {
 }
 
 
+class MainImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {image: null};
+    this.fetchImage = this.fetchImage.bind(this);
+  }
+
+  fetchImage() {
+    fetch('http://localhost:5000/getArtistImage/'.concat(this.props.artist.name))
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({ image: data.image })
+    })
+    .catch(console.log)
+  }
+
+  componentDidMount() {
+    this.fetchImage();
+  }
+
+  render() {
+    return this.state.image ? (
+        <img 
+          src={this.state.image}
+          alt={this.props.artist.name} 
+          style={{'max-height': '50vh',
+                  'max-width': '300px',
+                  'display': 'block',
+                  'margin-left': 'auto',
+                  'margin-right': 'auto'
+                }}
+        />
+      ) : (
+        <span>Loading image...</span>
+    )
+  }
+}
+
+
 class ArtistData extends React.Component {
   constructor(props) {
     super(props);
@@ -81,6 +120,7 @@ class ArtistData extends React.Component {
   render() {
     return this.state.artist ? (
         <div>
+          <MainImage artist={this.state.artist}/>
           <h2 style={{'display': 'flex','justify-content': 'center'}}>Artist: {this.state.artist.name}</h2>
           <h4 style={{'display': 'flex','justify-content': 'center'}}>Years: {this.state.artist.years}</h4>
           <h4 style={{'display': 'flex','justify-content': 'center'}}>Genre: {this.state.artist.genre}</h4>
